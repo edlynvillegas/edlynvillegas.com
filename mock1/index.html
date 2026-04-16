@@ -315,20 +315,18 @@
       transition: width 0.15s ease;
     }
 
-    @media (hover: hover) {
-      .tag:hover {
-        background: rgba(168, 85, 247, 0.12);
-        border-color: var(--accent-bright);
-        color: var(--accent-bright);
-        box-shadow: 0 0 18px var(--accent-soft);
-        padding-left: 6px;
-        padding-right: 8px;
-      }
+    .tag:hover {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: var(--accent-bright);
+      color: var(--accent-bright);
+      box-shadow: 0 0 18px var(--accent-soft);
+      padding-left: 6px;
+      padding-right: 8px;
+    }
 
-      .tag:hover::before {
-        width: 12px;
-        animation: arrow-pulse 0.8s steps(2) infinite;
-      }
+    .tag:hover::before {
+      width: 12px;
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     /* ── Inventory / badges ── */
