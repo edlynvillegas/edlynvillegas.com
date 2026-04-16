@@ -17,9 +17,9 @@
       --border: #1e1e22;
       --text: #e4e4e7;
       --text-muted: #71717a;
-      --accent: #22d3ee;
-      --accent-dim: rgba(34, 211, 238, 0.08);
-      --accent-glow: rgba(34, 211, 238, 0.15);
+      --accent: #a855f7;
+      --accent-dim: rgba(168, 85, 247, 0.08);
+      --accent-glow: rgba(168, 85, 247, 0.15);
       --font-body: 'Outfit', sans-serif;
       --font-mono: 'DM Mono', monospace;
     }
@@ -163,23 +163,51 @@
       margin-bottom: 14px;
     }
 
-    .cert-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text);
-      margin-right: 24px;
-      margin-bottom: 8px;
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
     }
 
-    .cert-badge {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+    .cert-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      padding: 20px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: all 0.25s ease;
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .cert-img {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+    }
+
+    .cert-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .cert-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
     }
 
     /* ── links ── */
@@ -212,7 +240,7 @@
 
     .link-btn.primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(34, 211, 238, 0.25);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25);
     }
 
     .link-btn.secondary {
@@ -326,8 +354,28 @@
 
     <section class="certs">
       <p class="certs-label">Certifications</p>
-      <div>
-        <span class="cert-item"><span class="cert-badge"></span>AWS Cloud Practitioner (CLF-C02)</span>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <img src="images/aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner badge" class="cert-img">
+          <div>
+            <div class="cert-name">AWS Cloud Practitioner</div>
+            <div class="cert-meta">CLF-C02</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <img src="images/oci-generative-ai-professional.png" alt="Oracle Cloud Infrastructure Generative AI Professional badge" class="cert-img">
+          <div>
+            <div class="cert-name">OCI Generative AI Professional</div>
+            <div class="cert-meta">Oracle · 2025</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <img src="images/databricks-fundamentals.png" alt="Databricks Fundamentals Accreditation badge" class="cert-img">
+          <div>
+            <div class="cert-name">Databricks Fundamentals</div>
+            <div class="cert-meta">Accreditation</div>
+          </div>
+        </div>
       </div>
     </section>
 
