@@ -277,17 +277,52 @@
       gap: 6px;
     }
 
+    /* Arrow reservation = 12px left pad. On hover: arrow +12px, pad-left -6px, pad-right -6px
+       → text shifts 6px right, container width stays identical */
     .tag {
       font-family: var(--font-body);
       font-weight: 500;
       font-size: 13px;
-      padding: 4px 11px;
+      padding: 5px 14px 5px 12px;
       border: 2px solid var(--border-mid);
       border-radius: 4px;
       background: var(--accent-soft);
       color: var(--ink);
       line-height: 1.3;
       letter-spacing: 0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      cursor: default;
+      transition: background 0.12s ease, border-color 0.12s ease,
+                  box-shadow 0.12s ease, color 0.12s ease,
+                  padding-left 0.15s ease, padding-right 0.15s ease;
+    }
+
+    .tag::before {
+      content: '▶';
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 9px;
+      letter-spacing: 5px;
+      transition: width 0.15s ease;
+    }
+
+    .tag:hover {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: var(--accent-bright);
+      color: var(--accent-bright);
+      box-shadow: 0 0 18px var(--accent-soft);
+      padding-left: 6px;
+      padding-right: 8px;
+    }
+
+    .tag:hover::before {
+      width: 12px;
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     /* ── Inventory / badges ── */
@@ -313,7 +348,6 @@
     .inv-item:hover {
       background: rgba(168, 85, 247, 0.12);
       border-color: var(--accent-bright);
-      transform: translateX(2px);
       box-shadow: 0 0 18px var(--accent-soft);
     }
 
@@ -342,6 +376,26 @@
       color: var(--ink);
       line-height: 1.3;
       letter-spacing: 0.005em;
+      display: flex;
+      align-items: center;
+    }
+
+    .inv-item .meta .t::before {
+      content: '▶';
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 9px;
+      letter-spacing: 5px;
+      color: var(--accent-bright);
+      transition: width 0.15s ease;
+    }
+
+    .inv-item:hover .meta .t::before {
+      width: 14px;
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     .inv-item .meta .d {
@@ -363,19 +417,19 @@
       text-transform: uppercase;
     }
 
-    /* ── Dialog ── */
-    .dialog-panel {
-      min-height: 120px;
+    /* ── Inline dialog (inside trainer card) ── */
+    .trainer-dialog {
       position: relative;
-      padding-right: 36px;
+      padding-right: 24px;
+      margin-top: 10px;
     }
 
     .dialog {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.55;
-      color: var(--ink);
+      color: var(--ink-dim);
     }
 
     .dialog .cursor {
@@ -390,15 +444,26 @@
 
     .dialog-next {
       position: absolute;
-      right: 16px;
-      bottom: 14px;
-      font-size: 22px;
+      right: 0;
+      bottom: -2px;
+      font-size: 18px;
       color: var(--accent-bright);
       animation: bob 0.8s steps(2) infinite;
     }
 
     @keyframes bob {
       50% { transform: translateY(4px); }
+    }
+
+    @keyframes arrow-pulse {
+      50% { transform: translateX(3px); }
+    }
+
+    /* Info footer below trainer row */
+    .info-footer {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-hl);
     }
 
     /* ── Action menu ── */
@@ -415,8 +480,9 @@
     .menu a {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 16px;
+      gap: 0;
+      /* left padding = arrow reservation (16px) */
+      padding: 14px 20px 14px 16px;
       background: var(--panel-2);
       border: 2px solid var(--border-mid);
       border-radius: 6px;
@@ -427,28 +493,36 @@
       font-size: 13px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: transform 0.12s ease, background 0.12s ease,
-                  border-color 0.12s ease, box-shadow 0.12s ease,
-                  color 0.12s ease;
+      transition: background 0.12s ease, border-color 0.12s ease,
+                  box-shadow 0.12s ease, color 0.12s ease,
+                  padding-left 0.15s ease;
     }
 
     .menu a::before {
       content: '▶';
-      color: transparent;
-      font-size: 14px;
-      transition: color 0.12s ease;
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 11px;
+      letter-spacing: 5px;
+      transition: width 0.15s ease;
     }
 
+    /* arrow grows 16px; pad-left -8px, pad-right -8px → text shifts 8px right, width unchanged */
     .menu a:hover {
       background: rgba(168, 85, 247, 0.12);
       border-color: var(--accent-bright);
       color: var(--accent-bright);
-      transform: translateX(2px);
       box-shadow: 0 0 18px var(--accent-soft);
+      padding-left: 8px;
+      padding-right: 12px;
     }
 
     .menu a:hover::before {
-      color: var(--accent-bright);
+      width: 16px;
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     /* ── Footer ── */
@@ -498,7 +572,8 @@
     /* Responsive */
     @media (max-width: 520px) {
       body { padding: 24px 12px 40px; }
-      .panel { padding: 20px 18px 20px; }
+      .panel { padding: 20px 16px 20px; }
+      .panel-title { left: 16px; }
       .trainer { grid-template-columns: 80px 1fr; gap: 14px; }
       .avatar { width: 80px; height: 80px; }
       .avatar svg { width: 68px; height: 68px; }
@@ -508,6 +583,9 @@
       .stack dd { margin-bottom: 8px; }
       .info-grid { grid-template-columns: 1fr; gap: 2px 0; }
       .info-grid dd { margin-bottom: 8px; }
+      .inv-item { grid-template-columns: 52px 1fr auto; gap: 12px; padding: 10px 12px; }
+      .inv-item .thumb { width: 52px; height: 52px; }
+      .dialog { font-size: 13px; }
     }
   </style>
 </head>
@@ -516,7 +594,7 @@
 
     <div class="save-slot">
       <span>Portfolio — ver 2026.04</span>
-      <span class="live"><span class="dot"></span>Online · UTC+8</span>
+      <span class="live"><span class="dot"></span>Open to opportunities · UTC+8</span>
     </div>
 
     <!-- ── TRAINER CARD ── -->
@@ -570,15 +648,18 @@
         <div class="trainer-info">
           <div class="name">EDLYN VILLEGAS</div>
           <div class="subname">▸ Fullstack Developer</div>
-
-          <dl class="info-grid">
-            <dt>Based</dt>     <dd>Manila, Philippines <span class="hl">(UTC+8)</span></dd>
-            <dt>Shipping</dt>  <dd>Since 2020</dd>
-            <dt>Focus</dt>     <dd>SaaS platforms · Cloud infra</dd>
-            <dt>Status</dt>    <dd><span class="ok">●</span> Open to opportunities</dd>
-          </dl>
+          <div class="trainer-dialog">
+            <p class="dialog" id="dialog"></p>
+            <span class="dialog-next" aria-hidden="true">▼</span>
+          </div>
         </div>
       </div>
+
+      <dl class="info-grid info-footer">
+        <dt>Based</dt>     <dd>Manila, Philippines <span class="hl">(UTC+8)</span></dd>
+        <dt>Shipping</dt>  <dd>Since 2020</dd>
+        <dt>Focus</dt>     <dd>SaaS platforms · Cloud infra</dd>
+      </dl>
     </section>
 
     <!-- ── STACK ── -->
@@ -590,15 +671,16 @@
         <dd>
           <span class="tag">React</span>
           <span class="tag">TypeScript</span>
+          <span class="tag">Tanstack Start &amp; Query</span>
           <span class="tag">Tailwind</span>
-          <span class="tag">Vite</span>
         </dd>
 
         <dt>Backend</dt>
         <dd>
+          <span class="tag">Node</span>
+          <span class="tag">NestJS</span>
           <span class="tag">Python</span>
           <span class="tag">FastAPI</span>
-          <span class="tag">Node.js</span>
         </dd>
 
         <dt>Infra</dt>
@@ -606,12 +688,15 @@
           <span class="tag">AWS</span>
           <span class="tag">Cloudflare</span>
           <span class="tag">Terraform</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">GitOps</span>
+          <span class="tag">ArgoCD</span>
         </dd>
 
         <dt>Data / Tools</dt>
         <dd>
           <span class="tag">PostgreSQL</span>
-          <span class="tag">Redis</span>
+          <span class="tag">Supabase</span>
           <span class="tag">Git</span>
           <span class="tag">Docker</span>
         </dd>
@@ -650,14 +735,6 @@
       </div>
     </section>
 
-    <!-- ── DIALOG ── -->
-    <section class="panel dialog-panel">
-      <span class="panel-title"><span class="icon">▶</span>Dialog</span>
-
-      <p class="dialog" id="dialog"></p>
-      <span class="dialog-next" aria-hidden="true">▼</span>
-    </section>
-
     <!-- ── ACTIONS ── -->
     <section class="panel">
       <span class="panel-title"><span class="icon">⚡</span>Actions</span>
@@ -681,6 +758,17 @@
   </div>
 
   <script>
+    // ── Hover sound ──
+    const hoverSound = new Audio('../sounds/emerald.mp3');
+    hoverSound.volume = 0.35;
+    function playHover() {
+      hoverSound.currentTime = 0;
+      hoverSound.play().catch(() => {});
+    }
+    document.querySelectorAll('.tag, .menu a, .inv-item').forEach(el => {
+      el.addEventListener('mouseenter', playHover);
+    });
+
     const text = "Hi! I'm Edlyn — a fullstack developer from the Philippines. I build SaaS platforms with React, TypeScript, Python, and ship them on Cloudflare & AWS. Currently open to new roles.";
     const el = document.getElementById('dialog');
     let i = 0;
