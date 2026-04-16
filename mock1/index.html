@@ -597,6 +597,33 @@
       text-decoration-color: var(--accent-bright);
     }
 
+    /* ── Verify button fill overlay ── */
+    .verify-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verify-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .verify-btn.filling::after {
+      animation: btn-fill 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes btn-fill {
+      0%   { transform: scaleX(0); opacity: 0.25; }
+      100% { transform: scaleX(1); opacity: 0.4; }
+    }
+
     /* Responsive */
     @media (max-width: 520px) {
       body { padding: 24px 12px 40px; }
@@ -803,6 +830,24 @@
     }
     document.querySelectorAll('.tag, .menu a, .inv-item, .verify-btn').forEach(el => {
       el.addEventListener('mouseenter', playHover);
+    });
+
+    // ── Verify click: sound + button fill transition ──
+    const verifySound = new Audio('../sounds/emerald_00D1.wav');
+    verifySound.volume = 0.45;
+
+    document.querySelectorAll('.verify-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.href;
+        verifySound.currentTime = 0;
+        verifySound.play().catch(() => {});
+        this.classList.add('filling');
+        setTimeout(() => {
+          window.open(href, '_blank', 'noopener');
+          this.classList.remove('filling');
+        }, 550);
+      });
     });
 
     const text = "Hi! I'm Edlyn — a fullstack developer from the Philippines. I build SaaS platforms with React, TypeScript, Python, and ship them on Cloudflare & AWS. Currently open to new roles.";
