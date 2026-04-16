@@ -90,7 +90,7 @@
       color: var(--ink);
       border: 3px solid var(--border-mid);
       border-radius: 8px;
-      padding: 22px 24px 24px;
+      padding: 32px 24px 24px;
       position: relative;
       box-shadow:
         inset 0 0 0 1px rgba(255,255,255,0.04),
@@ -115,11 +115,21 @@
       box-shadow: 0 2px 0 rgba(0,0,0,0.5);
       -webkit-font-smoothing: none;
       font-smooth: never;
+      display: inline-flex;
+      align-items: center;
     }
 
     .panel-title .icon {
       color: var(--gold);
       margin-right: 6px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .panel-title .icon svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
 
     /* ── Save slot header ── */
@@ -478,6 +488,8 @@
       font-size: 18px;
       color: var(--accent-bright);
       animation: bob 0.8s steps(2) infinite;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
     @keyframes bob {
@@ -625,6 +637,219 @@
       100% { transform: scaleX(1); opacity: 0.4; }
     }
 
+    /* ── Splash / Boot screen ── */
+    body.splash-active { overflow: hidden; }
+    body.splash-active .console { opacity: 0; pointer-events: none; }
+    .console { transition: opacity 0.6s ease; }
+
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(26, 15, 42, 0.6) 0%, var(--bg-0) 70%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .splash::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.35) 100%);
+      pointer-events: none;
+    }
+
+    .splash.dismissed {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-inner {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Stardew-style firefly particles */
+    .splash-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: firefly 6s ease-in-out infinite;
+    }
+
+    @keyframes firefly {
+      0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+      15%  { opacity: 0.7; transform: translateY(-8px) scale(1); }
+      50%  { opacity: 0.9; transform: translateY(-25px) scale(0.8); }
+      85%  { opacity: 0.4; transform: translateY(-35px) scale(0.5); }
+    }
+
+    /* Boot sparkle */
+    .splash-star {
+      font-size: 32px;
+      color: var(--gold);
+      opacity: 0;
+      text-shadow: 0 0 20px var(--gold), 0 0 40px rgba(168, 85, 247, 0.5);
+    }
+
+    .splash-star.show {
+      animation: star-in 0.6s ease forwards;
+    }
+
+    @keyframes star-in {
+      0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+      50%  { opacity: 1; transform: scale(1.5) rotate(180deg); }
+      100% { opacity: 1; transform: scale(1) rotate(360deg); }
+    }
+
+    /* Splash avatar */
+    .splash-avatar {
+      width: 96px;
+      height: 96px;
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+
+    .splash-avatar.show {
+      animation: splash-drop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .splash-avatar.float {
+      opacity: 1;
+      transform: translateY(0);
+      animation: splash-float 2.5s ease-in-out infinite;
+    }
+
+    .splash-avatar svg {
+      width: 96px;
+      height: 96px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.3));
+    }
+
+    @keyframes splash-drop {
+      0%   { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes splash-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* Splash text */
+    .splash-name {
+      font-family: var(--font-title);
+      font-size: 26px;
+      color: var(--ink);
+      letter-spacing: 0.03em;
+      margin-top: 22px;
+      opacity: 0;
+      text-shadow: 0 0 24px var(--accent-soft);
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+    }
+
+    .splash-name.show {
+      animation: splash-fade-up 0.4s ease forwards;
+    }
+
+    .splash-role {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--accent-bright);
+      margin-top: 6px;
+      opacity: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .splash-role.show {
+      animation: splash-fade-up 0.4s ease forwards;
+    }
+
+    @keyframes splash-fade-up {
+      0%   { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Press Start prompt */
+    .splash-prompt {
+      margin-top: 32px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .splash-prompt.show {
+      opacity: 1;
+    }
+
+    .splash-press {
+      font-family: var(--font-title);
+      font-size: 14px;
+      color: var(--accent-bright);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      animation: blink 1.2s steps(2) infinite;
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+    }
+
+    .splash-hint {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+      margin-top: 10px;
+      opacity: 0.7;
+    }
+
+    /* White flash on dismiss */
+    .splash-flash {
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-flash.active {
+      animation: splash-flash-anim 0.4s ease-out forwards;
+    }
+
+    @keyframes splash-flash-anim {
+      0%   { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+
+    /* Splash responsive */
+    @media (max-width: 520px) {
+      .splash-name { font-size: 20px; }
+      .splash-avatar { width: 72px; height: 72px; }
+      .splash-avatar svg { width: 72px; height: 72px; }
+      .splash-press { font-size: 12px; }
+    }
+
     /* Responsive */
     @media (max-width: 520px) {
       body { padding: 24px 12px 40px; }
@@ -645,7 +870,49 @@
     }
   </style>
 </head>
-<body>
+<body class="splash-active">
+
+  <!-- ── SPLASH / BOOT SCREEN ── -->
+  <div id="splash-flash" class="splash-flash"></div>
+  <div id="splash" class="splash" role="button" tabindex="0" aria-label="Press Start to enter portfolio">
+    <div class="splash-particles" id="splash-particles" aria-hidden="true"></div>
+    <div class="splash-inner">
+      <div class="splash-star" id="splash-star">✦</div>
+      <div class="splash-avatar" id="splash-avatar">
+        <svg viewBox="0 0 14 14" shape-rendering="crispEdges">
+          <rect x="3" y="1" width="8" height="1" fill="#2a1e38"/>
+          <rect x="2" y="2" width="10" height="3" fill="#2a1e38"/>
+          <rect x="1"  y="3"  width="2" height="11" fill="#2a1e38"/>
+          <rect x="11" y="3"  width="2" height="11" fill="#2a1e38"/>
+          <rect x="0"  y="10" width="2" height="4"  fill="#2a1e38"/>
+          <rect x="12" y="10" width="2" height="4"  fill="#2a1e38"/>
+          <rect x="1"  y="4"  width="1" height="5"  fill="#4a3358"/>
+          <rect x="12" y="4"  width="1" height="5"  fill="#4a3358"/>
+          <rect x="3" y="4" width="8" height="6" fill="#f0c090"/>
+          <rect x="4" y="10" width="6" height="1" fill="#f0c090"/>
+          <rect x="3" y="4" width="2" height="1" fill="#2a1e38"/>
+          <rect x="9" y="4" width="2" height="1" fill="#2a1e38"/>
+          <rect x="3" y="5" width="1" height="1" fill="#2a1e38"/>
+          <rect x="10" y="5" width="1" height="1" fill="#2a1e38"/>
+          <rect x="4" y="6" width="1" height="2" fill="#2a1e38"/>
+          <rect x="9" y="6" width="1" height="2" fill="#2a1e38"/>
+          <rect x="3" y="7" width="1" height="1" fill="#d8688a"/>
+          <rect x="10" y="7" width="1" height="1" fill="#d8688a"/>
+          <rect x="6" y="8" width="2" height="1" fill="#a83858"/>
+          <rect x="3" y="11" width="8" height="1" fill="#3a2850"/>
+          <rect x="3" y="12" width="8" height="2" fill="#a855f7"/>
+          <rect x="4" y="12" width="6" height="1" fill="#c68cff"/>
+        </svg>
+      </div>
+      <div class="splash-name" id="splash-name">EDLYN VILLEGAS</div>
+      <div class="splash-role" id="splash-role">▸ Fullstack Developer</div>
+      <div class="splash-prompt" id="splash-prompt">
+        <div class="splash-press">▶ Press Start</div>
+        <div class="splash-hint">click anywhere · press any key</div>
+      </div>
+    </div>
+  </div>
+
   <div class="console">
 
     <div class="save-slot">
@@ -655,7 +922,7 @@
 
     <!-- ── TRAINER CARD ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon">★</span>Profile</span>
+      <span class="panel-title"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 6 23 11 22 11 22 12 21 12 21 13 20 13 20 14 19 14 19 15 18 15 18 16 17 16 17 17 16 17 16 18 15 18 15 19 14 19 14 20 13 20 13 21 11 21 11 20 10 20 10 19 9 19 9 18 8 18 8 17 7 17 7 16 6 16 6 15 5 15 5 14 4 14 4 13 3 13 3 12 2 12 2 11 1 11 1 6 2 6 2 5 3 5 3 4 4 4 4 3 10 3 10 4 11 4 11 5 13 5 13 4 14 4 14 3 20 3 20 4 21 4 21 5 22 5 22 6 23 6"/></svg></span>Profile</span>
 
       <div class="trainer">
         <div class="avatar" aria-hidden="true">
@@ -715,12 +982,13 @@
         <dt>Based</dt>     <dd>Manila, Philippines 🇵🇭</dd>
         <dt>Shipping</dt>  <dd>Since 2019</dd>
         <dt>Focus</dt>     <dd>SaaS platforms · Cloud infra · AI integrations</dd>
+        <dt>Email</dt>     <dd><a href="mailto:edlynsavillegas@gmail.com" style="color:var(--accent-bright);text-decoration:none;">edlynsavillegas@gmail.com</a></dd>
       </dl>
     </section>
 
     <!-- ── STACK ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon">✦</span>Stack</span>
+      <span class="panel-title"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 4 16 4 16 6 15 6 15 9 14 9 14 12 13 12 13 14 12 14 12 17 11 17 11 20 10 20 10 21 9 21 9 20 8 20 8 18 9 18 9 15 10 15 10 12 11 12 11 10 12 10 12 7 13 7 13 4 14 4 14 3 15 3 15 4"/><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 17 17 17 15 18 15 18 14 19 14 19 13 20 13 20 11 19 11 19 10 18 10 18 9 17 9 17 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/><polygon points="7 7 7 9 6 9 6 10 5 10 5 11 4 11 4 13 5 13 5 14 6 14 6 15 7 15 7 17 5 17 5 16 4 16 4 15 3 15 3 14 2 14 2 13 1 13 1 11 2 11 2 10 3 10 3 9 4 9 4 8 5 8 5 7 7 7"/></svg></span>Stack</span>
 
       <dl class="stack">
         <dt>Frontend</dt>
@@ -761,7 +1029,7 @@
 
     <!-- ── INVENTORY / BADGES ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon">⬢</span>Credentials</span>
+      <span class="panel-title"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,10v-1h-1v-4h-1v-1h-1v-1h-4v-1h-1v-1h-4v1h-1v1h-4v1h-1v1h-1v4h-1v1h-1v4h1v1h1v4h1v1h1v1h4v1h1v1h4v-1h1v-1h4v-1h1v-1h1v-4h1v-1h1v-4h-1Zm-15,1h1v-1h1v1h1v1h2v-1h1v-1h1v-1h1v-1h1v1h1v2h-1v1h-1v1h-1v1h-1v1h-1v1h-2v-1h-1v-1h-1v-1h-1v-2Z"/></svg></span>Credentials</span>
 
       <div class="inv">
         <div class="inv-item">
@@ -801,7 +1069,7 @@
 
     <!-- ── ACTIONS ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon">⚡</span>Actions</span>
+      <span class="panel-title"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="21 10 21 11 20 11 20 12 19 12 19 13 18 13 18 14 17 14 17 15 16 15 16 16 15 16 15 17 14 17 14 18 13 18 13 19 12 19 12 20 11 20 11 21 10 21 10 22 9 22 9 23 8 23 8 21 9 21 9 18 10 18 10 14 3 14 3 13 4 13 4 12 5 12 5 11 6 11 6 10 7 10 7 9 8 9 8 8 9 8 9 7 10 7 10 6 11 6 11 5 12 5 12 4 13 4 13 3 14 3 14 2 15 2 15 1 16 1 16 3 15 3 15 6 14 6 14 10 21 10"/></svg></span>Actions</span>
 
       <ul class="menu">
         <li><a href="https://github.com/edlynvillegas" target="_blank" rel="noopener">GitHub</a></li>
@@ -816,54 +1084,199 @@
       <div class="font-credit">
         Font: <a href="https://fontstruct.com/fontstructions/show/1975556" target="_blank" rel="noopener">&ldquo;Pokemon Emerald&rdquo; by aztecwarrior28</a>
         · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>
+        <br>Icons: <a href="https://pixeliconlibrary.com/" target="_blank" rel="noopener">Pixel Icon Library</a>
+        · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>
       </div>
     </div>
 
   </div>
 
   <script>
-    // ── Hover sound ──
-    const hoverSound = new Audio('sounds/emerald.mp3');
+    // ── Sound setup ──
+    var hoverSound = new Audio('sounds/emerald.mp3');
     hoverSound.volume = 0.35;
+    var clickSound = new Audio('sounds/emerald_00D1.wav');
+    clickSound.volume = 0.45;
+
     function playHover() {
       hoverSound.currentTime = 0;
-      hoverSound.play().catch(() => {});
+      hoverSound.play().catch(function() {});
     }
-    document.querySelectorAll('.tag, .menu a, .inv-item, .verify-btn').forEach(el => {
+
+    function playClick() {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(function() {});
+    }
+
+    // ── Hover sounds ──
+    document.querySelectorAll('.tag, .menu a, .inv-item, .verify-btn').forEach(function(el) {
       el.addEventListener('mouseenter', playHover);
     });
 
     // ── Verify click: sound + button fill transition ──
-    const verifySound = new Audio('sounds/emerald_00D1.wav');
-    verifySound.volume = 0.45;
-
-    document.querySelectorAll('.verify-btn').forEach(btn => {
+    document.querySelectorAll('.verify-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        const href = this.href;
-        verifySound.currentTime = 0;
-        verifySound.play().catch(() => {});
+        var href = this.href;
+        playClick();
         this.classList.add('filling');
-        setTimeout(() => {
+        setTimeout(function() {
           window.open(href, '_blank', 'noopener');
-          this.classList.remove('filling');
+          btn.classList.remove('filling');
         }, 550);
       });
     });
 
-    const text = "Hi! I'm Edlyn. I build and ship SaaS platforms on the cloud. I pair with AI to move even faster. Let's build! :D";
-    const el = document.getElementById('dialog');
-    let i = 0;
-    function type() {
-      if (i <= text.length) {
-        el.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
-        i++;
-        setTimeout(type, 26);
-      } else {
-        el.innerHTML = text + '<span class="cursor"></span>';
-      }
+    // ── Footer "Press Start" → scroll to top ──
+    var footerStart = document.querySelector('.footer .press-start');
+    if (footerStart) {
+      footerStart.style.cursor = 'pointer';
+      footerStart.title = 'Back to top';
+      footerStart.addEventListener('click', function() {
+        playHover();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     }
-    type();
+
+    // ── Typewriter with rotating dialogs ──
+    var dialogs = [
+      "Hi! I'm Edlyn. I build and ship SaaS platforms on the cloud. I pair with AI to move even faster. Let's build! :D",
+      "Currently pursuing cloud certifications and exploring AI integrations. Always shipping, always learning!",
+      "When I'm not coding, I'm probably hiking a mountain somewhere in the Philippines. :)",
+      "Or just binging something on Netflix. Got any recommendations? ^_^"
+    ];
+    var dialogIdx = 0;
+    var dialogEl = document.getElementById('dialog');
+    var dialogNext = document.querySelector('.dialog-next');
+
+    function typeDialog(text, onDone) {
+      var i = 0;
+      function tick() {
+        if (i <= text.length) {
+          dialogEl.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
+          i++;
+          setTimeout(tick, 26);
+        } else {
+          dialogEl.innerHTML = text + '<span class="cursor"></span>';
+          if (onDone) onDone();
+        }
+      }
+      tick();
+    }
+
+    var dialogDelays = [10000, 6000, 6000, 6000];
+
+    function startTypewriter() {
+      dialogIdx = 0;
+      typeDialog(dialogs[0], function() {
+        if (dialogNext) dialogNext.style.opacity = '1';
+        scheduleNext();
+      });
+    }
+
+    function scheduleNext() {
+      var delay = dialogDelays[dialogIdx] || 6000;
+      setTimeout(function() {
+        dialogIdx = (dialogIdx + 1) % dialogs.length;
+        if (dialogNext) { dialogNext.style.transition = 'none'; dialogNext.style.opacity = '0'; }
+        typeDialog(dialogs[dialogIdx], function() {
+          if (dialogNext) dialogNext.style.transition = 'opacity 0.2s ease';
+          if (dialogNext) dialogNext.style.opacity = '1';
+          scheduleNext();
+        });
+      }, delay);
+    }
+
+    // ── Splash / Boot screen ──
+    (function() {
+      var splash = document.getElementById('splash');
+      var flash = document.getElementById('splash-flash');
+      if (!splash) { startTypewriter(); return; }
+
+      var els = {
+        star: document.getElementById('splash-star'),
+        avatar: document.getElementById('splash-avatar'),
+        name: document.getElementById('splash-name'),
+        role: document.getElementById('splash-role'),
+        prompt: document.getElementById('splash-prompt')
+      };
+
+      // ── Stardew-style firefly particles ──
+      var particlesContainer = document.getElementById('splash-particles');
+      var colors = ['#f0c048', '#c68cff', '#e8e0f0', '#a855f7', '#7ad870'];
+      for (var p = 0; p < 18; p++) {
+        var dot = document.createElement('div');
+        dot.className = 'particle';
+        var c = colors[Math.floor(Math.random() * colors.length)];
+        var size = 2 + Math.random() * 3;
+        dot.style.cssText =
+          'left:' + (5 + Math.random() * 90) + '%;' +
+          'top:' + (5 + Math.random() * 90) + '%;' +
+          'width:' + size + 'px;height:' + size + 'px;' +
+          'background:' + c + ';' +
+          'box-shadow:0 0 ' + (size * 3) + 'px ' + c + ';' +
+          'animation-duration:' + (4 + Math.random() * 6) + 's;' +
+          'animation-delay:' + (Math.random() * 5) + 's;';
+        particlesContainer.appendChild(dot);
+      }
+
+      var ready = false;
+      var dismissed = false;
+
+      // ── Boot sequence ──
+      var steps = [
+        { delay: 400,  fn: function() { els.star.classList.add('show'); playHover(); } },
+        { delay: 1000, fn: function() { els.avatar.classList.add('show'); } },
+        { delay: 1500, fn: function() { els.avatar.classList.remove('show'); els.avatar.classList.add('float'); } },
+        { delay: 1600, fn: function() { els.name.classList.add('show'); } },
+        { delay: 1900, fn: function() { els.role.classList.add('show'); } },
+        { delay: 2400, fn: function() { els.prompt.classList.add('show'); ready = true; } }
+      ];
+
+      var timers = [];
+      for (var s = 0; s < steps.length; s++) {
+        timers.push(setTimeout(steps[s].fn, steps[s].delay));
+      }
+
+      function skipToReady() {
+        for (var t = 0; t < timers.length; t++) clearTimeout(timers[t]);
+        els.star.classList.add('show');
+        els.avatar.classList.add('float');
+        els.name.classList.add('show');
+        els.role.classList.add('show');
+        els.prompt.classList.add('show');
+        ready = true;
+      }
+
+      function dismiss() {
+        if (dismissed) return;
+        dismissed = true;
+        playClick();
+        flash.classList.add('active');
+        splash.classList.add('dismissed');
+        setTimeout(function() {
+          document.body.classList.remove('splash-active');
+          startTypewriter();
+        }, 500);
+        setTimeout(function() {
+          splash.remove();
+          flash.remove();
+        }, 1200);
+      }
+
+      function handleInteraction() {
+        if (dismissed) return;
+        if (!ready) skipToReady();
+        else dismiss();
+      }
+
+      splash.addEventListener('click', handleInteraction);
+      document.addEventListener('keydown', function onKey(e) {
+        if (dismissed) { document.removeEventListener('keydown', onKey); return; }
+        if (['Shift', 'Control', 'Alt', 'Meta', 'Tab'].includes(e.key)) return;
+        handleInteraction();
+      });
+    })();
   </script>
 </body>
 </html>
