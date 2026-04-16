@@ -74,22 +74,7 @@
       padding: 40px 20px 64px;
     }
 
-    /* Subtle scanlines */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1000;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.18) 0px,
-        rgba(0,0,0,0.18) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      mix-blend-mode: multiply;
-    }
+    /* Scanlines removed — was obscuring badge images */
 
     .console {
       max-width: 760px;
@@ -412,13 +397,52 @@
       margin-top: 4px;
     }
 
-    .inv-item .no {
+    .verify-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 5px 14px 5px 12px;
+      background: var(--accent-soft);
+      border: 2px solid var(--border-mid);
+      border-radius: 4px;
+      color: var(--ink);
+      text-decoration: none;
       font-family: var(--font-mono);
-      font-weight: 400;
+      font-weight: 500;
       font-size: 11px;
-      color: var(--ink-dim);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      white-space: nowrap;
+      cursor: default;
+      transition: background 0.12s ease, border-color 0.12s ease,
+                  box-shadow 0.12s ease, color 0.12s ease,
+                  padding-left 0.15s ease, padding-right 0.15s ease;
+    }
+
+    .verify-btn::before {
+      content: '▶';
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 9px;
+      letter-spacing: 5px;
+      transition: width 0.15s ease;
+    }
+
+    .verify-btn:hover {
+      background: rgba(168, 85, 247, 0.12);
+      border-color: var(--accent-bright);
+      color: var(--accent-bright);
+      box-shadow: 0 0 18px var(--accent-soft);
+      padding-left: 6px;
+      padding-right: 8px;
+    }
+
+    .verify-btn:hover::before {
+      width: 12px;
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     /* ── Inline dialog (inside trainer card) ── */
@@ -603,7 +627,7 @@
 
     <!-- ── TRAINER CARD ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon">★</span>Trainer Card</span>
+      <span class="panel-title"><span class="icon">★</span>Profile</span>
 
       <div class="trainer">
         <div class="avatar" aria-hidden="true">
@@ -716,25 +740,33 @@
           <div class="thumb"><img src="../images/aws-cloud-practitioner.png" alt="AWS Cloud Practitioner"></div>
           <div class="meta">
             <div class="t">AWS Cloud Practitioner (CLF-C02)</div>
-            <div class="d">Earned · Feb 15, 2026</div>
+            <div class="d">Associate · Feb 15, 2026</div>
           </div>
-          <span class="no">№ 001</span>
+          <a class="verify-btn" href="https://cp.certmetrics.com/amazon/en/public/verify/credential/a43974951f404ce0ae43e6e3c5a78823" target="_blank" rel="noopener">Verify</a>
         </div>
         <div class="inv-item">
           <div class="thumb"><img src="../images/oci-generative-ai-professional.png" alt="OCI Generative AI Professional"></div>
           <div class="meta">
             <div class="t">OCI Generative AI Professional</div>
-            <div class="d">Earned · Oct 08, 2025</div>
+            <div class="d">Professional · Oct 08, 2025</div>
           </div>
-          <span class="no">№ 002</span>
+          <a class="verify-btn" href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=CC60D284F88D84599C4EA9F0DD42D735EEDDF5A456AD5C056C50743800D84629" target="_blank" rel="noopener">Verify</a>
+        </div>
+        <div class="inv-item">
+          <div class="thumb"><img src="../images/oci-ai-foundations-associate.png" alt="OCI AI Foundations Associate"></div>
+          <div class="meta">
+            <div class="t">OCI AI Foundations Associate</div>
+            <div class="d">Associate · Sep 24, 2025</div>
+          </div>
+          <a class="verify-btn" href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=44008B9C0F889CF495914B84F6EECD48EB396A426A18C2F24B1291F6348D8903" target="_blank" rel="noopener">Verify</a>
         </div>
         <div class="inv-item">
           <div class="thumb"><img src="../images/databricks-fundamentals.png" alt="Databricks Fundamentals"></div>
           <div class="meta">
             <div class="t">Databricks Fundamentals</div>
-            <div class="d">Earned · Mar 06, 2026</div>
+            <div class="d">Accreditation · Mar 06, 2026</div>
           </div>
-          <span class="no">№ 003</span>
+          <a class="verify-btn" href="https://credentials.databricks.com/8e836f77-5ffa-4a2b-8db6-2ec5b69e25fd" target="_blank" rel="noopener">Verify</a>
         </div>
       </div>
     </section>
@@ -769,7 +801,7 @@
       hoverSound.currentTime = 0;
       hoverSound.play().catch(() => {});
     }
-    document.querySelectorAll('.tag, .menu a, .inv-item').forEach(el => {
+    document.querySelectorAll('.tag, .menu a, .inv-item, .verify-btn').forEach(el => {
       el.addEventListener('mouseenter', playHover);
     });
 
