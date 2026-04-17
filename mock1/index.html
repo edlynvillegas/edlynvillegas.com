@@ -1180,10 +1180,17 @@
         e.preventDefault();
         var href = this.href;
         var isEmail = href.indexOf('mailto:') === 0;
+        var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
         playClick();
         this.classList.add('filling');
 
-        if (isEmail) {
+        if (isEmail && isMobile) {
+          var self = this;
+          setTimeout(function() {
+            window.location.href = href;
+            self.classList.remove('filling');
+          }, 550);
+        } else if (isEmail) {
           var email = href.replace('mailto:', '');
           navigator.clipboard.writeText(email);
           var original = this.textContent;
