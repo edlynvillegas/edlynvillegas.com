@@ -36,32 +36,71 @@
     }
 
     :root {
-      /* Dark purple night — same palette as the main site */
+      /* Dark night base — same across all themes */
       --bg-0: #0a0710;
       --bg-1: #120b1e;
       --bg-2: #1a0f2a;
 
-      --panel: #14101e;         /* dark panel interior */
-      --panel-2: #1c1528;       /* slightly raised */
+      --panel: #14101e;
+      --panel-2: #1c1528;
       --panel-shade: #0a0712;
 
-      --ink: #e8e0f0;           /* near-white body */
-      --ink-dim: #8b7ba8;       /* muted lavender */
+      --ink: #e8e0f0;
+      --ink-dim: #8b7ba8;
       --ink-faint: #5a4d72;
 
       --border-dark: #000000;
-      --border-mid: #a855f7;    /* purple accent border */
-      --border-hl: rgba(168, 85, 247, 0.35);
 
-      --accent: #a855f7;
-      --accent-soft: rgba(168, 85, 247, 0.10);
-      --accent-bright: #c68cff;
       --gold: #f0c048;
       --green: #7ad870;
 
       --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
       --font-mono: 'DM Mono', ui-monospace, monospace;
       --font-title: 'Pokemon Emerald', 'Press Start 2P', monospace;
+
+      /* Theme accents — default purple */
+      --accent: #a855f7;
+      --accent-bright: #c68cff;
+      --accent-dark: #4c1d95;
+      --accent-soft: rgba(168, 85, 247, 0.10);
+      --accent-glow: rgba(168, 85, 247, 0.12);
+      --border-mid: #a855f7;
+      --border-hl: rgba(168, 85, 247, 0.35);
+    }
+
+    /* ── Theme palettes ── */
+    body.theme-water {
+      --accent: #3b82f6;
+      --accent-bright: #7eb6ff;
+      --accent-dark: #1e3a8a;
+      --accent-soft: rgba(59, 130, 246, 0.10);
+      --accent-glow: rgba(59, 130, 246, 0.14);
+      --border-mid: #3b82f6;
+      --border-hl: rgba(59, 130, 246, 0.35);
+      --bg-1: #0b1428;
+      --bg-2: #0d1c38;
+    }
+    body.theme-fire {
+      --accent: #f97316;
+      --accent-bright: #fdba74;
+      --accent-dark: #7c2d12;
+      --accent-soft: rgba(249, 115, 22, 0.10);
+      --accent-glow: rgba(249, 115, 22, 0.14);
+      --border-mid: #f97316;
+      --border-hl: rgba(249, 115, 22, 0.35);
+      --bg-1: #1d0f0b;
+      --bg-2: #2a140c;
+    }
+    body.theme-grass {
+      --accent: #22c55e;
+      --accent-bright: #86efac;
+      --accent-dark: #14532d;
+      --accent-soft: rgba(34, 197, 94, 0.10);
+      --accent-glow: rgba(34, 197, 94, 0.14);
+      --border-mid: #22c55e;
+      --border-hl: rgba(34, 197, 94, 0.35);
+      --bg-1: #0b1d12;
+      --bg-2: #0e2818;
     }
 
     html, body {
@@ -74,7 +113,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Starfield over dark purple gradient */
     body {
       background:
         radial-gradient(2px 2px at 15% 20%, var(--accent-bright) 50%, transparent 51%),
@@ -88,8 +126,6 @@
       padding: 40px 20px 64px;
     }
 
-    /* Scanlines removed — was obscuring badge images */
-
     .console {
       max-width: 760px;
       margin: 0 auto;
@@ -97,7 +133,6 @@
       z-index: 1;
     }
 
-    /* ── RPG menu panel — dark + purple border ── */
     .panel {
       background: var(--panel);
       color: var(--ink);
@@ -118,7 +153,8 @@
       font-weight: 400;
       font-size: 18px;
       letter-spacing: 0.02em;
-      color: var(--ink);
+      text-transform: uppercase;
+      color: var(--accent-dark);
       background: var(--accent);
       padding: 3px 10px 1px;
       position: absolute;
@@ -133,7 +169,6 @@
     }
 
     .panel-title .icon {
-      color: var(--gold);
       margin-right: 6px;
       display: inline-flex;
       align-items: center;
@@ -145,7 +180,6 @@
       fill: currentColor;
     }
 
-    /* ── Save slot header ── */
     .save-slot {
       font-family: var(--font-mono);
       font-weight: 400;
@@ -178,7 +212,6 @@
       50% { opacity: 0.35; }
     }
 
-    /* ── Trainer card ── */
     .trainer {
       display: grid;
       grid-template-columns: 112px 1fr;
@@ -210,6 +243,10 @@
       image-rendering: pixelated;
     }
 
+    /* Theme-able avatar shirt */
+    .shirt-main { fill: var(--accent); }
+    .shirt-light { fill: var(--accent-bright); }
+
     .trainer-info .name {
       font-family: var(--font-title);
       font-size: 32px;
@@ -232,7 +269,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* Real info grid — replaces HP/MP/LVL */
     .info-grid {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -251,19 +287,10 @@
       padding-top: 5px;
     }
 
-    .info-grid dd {
-      color: var(--ink);
-    }
+    .info-grid dd { color: var(--ink); }
+    .info-grid dd .hl { color: var(--accent-bright); }
+    .info-grid dd .ok { color: var(--green); }
 
-    .info-grid dd .hl {
-      color: var(--accent-bright);
-    }
-
-    .info-grid dd .ok {
-      color: var(--green);
-    }
-
-    /* ── Stack (skills as categorized tag rows) ── */
     .stack {
       display: grid;
       grid-template-columns: 110px 1fr;
@@ -287,8 +314,6 @@
       gap: 6px;
     }
 
-    /* Arrow reservation = 12px left pad. On hover: arrow +12px, pad-left -6px, pad-right -6px
-       → text shifts 6px right, container width stays identical */
     .tag {
       font-family: var(--font-body);
       font-weight: 500;
@@ -325,7 +350,7 @@
     }
 
     .tag:hover {
-      background: rgba(168, 85, 247, 0.12);
+      background: var(--accent-glow);
       border-color: var(--accent-bright);
       color: var(--accent-bright);
       box-shadow: 0 0 18px var(--accent-soft);
@@ -338,7 +363,6 @@
       animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
-    /* ── Inventory / badges ── */
     .inv {
       display: grid;
       grid-template-columns: 1fr;
@@ -359,7 +383,7 @@
     }
 
     .inv-item:hover {
-      background: rgba(168, 85, 247, 0.12);
+      background: var(--accent-glow);
       border-color: var(--accent-bright);
       box-shadow: 0 0 18px var(--accent-soft);
     }
@@ -456,7 +480,7 @@
     }
 
     .verify-btn:hover {
-      background: rgba(168, 85, 247, 0.12);
+      background: var(--accent-glow);
       border-color: var(--accent-bright);
       color: var(--accent-bright);
       box-shadow: 0 0 18px var(--accent-soft);
@@ -469,7 +493,6 @@
       animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
-    /* ── Inline dialog (inside trainer card) ── */
     .trainer-dialog {
       position: relative;
       padding-right: 24px;
@@ -513,14 +536,12 @@
       50% { transform: translateX(3px); }
     }
 
-    /* Info footer below trainer row */
     .info-footer {
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1px solid var(--border-hl);
     }
 
-    /* ── Action menu ── */
     .menu {
       list-style: none;
       display: grid;
@@ -535,7 +556,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      /* left padding = arrow reservation (16px) */
       padding: 14px 20px 14px 16px;
       background: var(--panel-2);
       border: 2px solid var(--border-mid);
@@ -564,9 +584,8 @@
       transition: width 0.15s ease;
     }
 
-    /* arrow grows 16px; pad-left -8px, pad-right -8px → text shifts 8px right, width unchanged */
     .menu a:hover {
-      background: rgba(168, 85, 247, 0.12);
+      background: var(--accent-glow);
       border-color: var(--accent-bright);
       color: var(--accent-bright);
       box-shadow: 0 0 18px var(--accent-soft);
@@ -607,7 +626,6 @@
       flex-shrink: 0;
     }
 
-    /* ── Footer ── */
     .footer {
       text-align: center;
       margin-top: 36px;
@@ -628,6 +646,39 @@
       text-transform: uppercase;
       -webkit-font-smoothing: none;
       font-smooth: never;
+    }
+
+    .restart-link {
+      display: inline-block;
+      margin-top: 10px;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .restart-link::before {
+      content: '▸';
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .restart-link:hover, .restart-link:focus-visible {
+      outline: none;
+      color: var(--accent-bright);
+      background: var(--accent-soft);
+    }
+
+    .restart-link:hover::before,
+    .restart-link:focus-visible::before {
+      animation: arrow-pulse 0.8s steps(2) infinite;
     }
 
     .font-credit {
@@ -651,7 +702,6 @@
       text-decoration-color: var(--accent-bright);
     }
 
-    /* ── Verify button fill overlay ── */
     .verify-btn {
       position: relative;
       overflow: hidden;
@@ -697,6 +747,7 @@
       transition: opacity 0.5s ease;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+      padding: 24px;
     }
 
     .splash::before {
@@ -719,9 +770,10 @@
       align-items: center;
       position: relative;
       z-index: 1;
+      max-width: 520px;
+      width: 100%;
     }
 
-    /* Stardew-style firefly particles */
     .splash-particles {
       position: absolute;
       inset: 0;
@@ -743,7 +795,6 @@
       85%  { opacity: 0.4; transform: translateY(-35px) scale(0.5); }
     }
 
-    /* Boot sparkle */
     .splash-star {
       font-size: 32px;
       color: var(--gold);
@@ -761,11 +812,20 @@
       100% { opacity: 1; transform: scale(1) rotate(360deg); }
     }
 
-    /* Splash avatar */
     .splash-avatar {
-      width: 96px;
-      height: 96px;
+      width: 112px;
+      height: 112px;
       margin-top: 20px;
+      background: linear-gradient(180deg, #2d1f42 0%, #1a0f2a 100%);
+      border: 3px solid var(--border-mid);
+      border-radius: 6px;
+      box-shadow:
+        inset 0 0 0 2px rgba(0,0,0,0.6),
+        0 0 24px var(--accent-soft);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
       opacity: 0;
       transform: translateY(-30px);
     }
@@ -781,10 +841,10 @@
     }
 
     .splash-avatar svg {
+      display: block;
       width: 96px;
       height: 96px;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.3));
     }
 
     @keyframes splash-drop {
@@ -797,7 +857,6 @@
       50%      { transform: translateY(-8px); }
     }
 
-    /* Splash text */
     .splash-name {
       font-family: var(--font-title);
       font-size: 26px;
@@ -815,13 +874,26 @@
     }
 
     .splash-role {
-      font-family: var(--font-body);
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--accent-bright);
-      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 11px;
+      color: var(--ink-dim);
+      margin-top: 10px;
       opacity: 0;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .splash-role::before,
+    .splash-role::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--ink-faint);
     }
 
     .splash-role.show {
@@ -833,16 +905,14 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Press Start prompt */
     .splash-prompt {
       margin-top: 32px;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
-    .splash-prompt.show {
-      opacity: 1;
-    }
+    .splash-prompt.show { opacity: 1; }
+    .splash-prompt.hide { opacity: 0; pointer-events: none; }
 
     .splash-press {
       font-family: var(--font-title);
@@ -864,7 +934,147 @@
       opacity: 0.7;
     }
 
-    /* White flash on dismiss */
+    /* ── Starter select screen ── */
+    .starter {
+      margin-top: 26px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .starter.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .starter-title {
+      font-family: var(--font-title);
+      font-size: 16px;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 20px var(--accent-soft);
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+    }
+
+    .starter-dialog {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-dim);
+      margin-top: 10px;
+      min-height: 2.4em;
+    }
+
+    .starter-dialog .cursor {
+      display: inline-block;
+      width: 0.5ch;
+      background: var(--accent-bright);
+      animation: blink 0.5s steps(2) infinite;
+      margin-left: 2px;
+      height: 1em;
+      vertical-align: -3px;
+    }
+
+    .ball-row {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+
+    .ball {
+      background: transparent;
+      border: none;
+      padding: 8px 6px 6px;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      border-radius: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .ball:hover, .ball:focus-visible { outline: none; }
+
+    .ball svg {
+      width: 64px;
+      height: 64px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 3px 0 rgba(0,0,0,0.4));
+      transition: filter 0.2s ease;
+      will-change: transform;
+    }
+
+    /* Keyboard focus fallback (no JS bounce — quick lift for accessibility) */
+    .ball:focus-visible svg {
+      transform: translateY(-10px);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+    }
+    .ball:focus-visible .ball-shadow {
+      opacity: 1;
+      transform: scaleX(0.75);
+    }
+
+    .ball-shadow {
+      width: 48px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 65%);
+      opacity: 0;
+      transform: scaleX(1);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      margin-top: -2px;
+      will-change: opacity, transform;
+    }
+
+    .ball-label {
+      font-family: var(--font-title);
+      font-size: 11px;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      -webkit-font-smoothing: none;
+      font-smooth: never;
+    }
+
+    .ball:hover .ball-label, .ball:focus-visible .ball-label {
+      color: var(--ball-text, var(--accent-bright));
+    }
+
+    .ball-water { --ball-glow: rgba(59, 130, 246, 0.5); --ball-text: #7eb6ff; }
+    .ball-fire  { --ball-glow: rgba(249, 115, 22, 0.5); --ball-text: #fdba74; }
+    .ball-grass { --ball-glow: rgba(34, 197, 94, 0.5);  --ball-text: #86efac; }
+
+    .skip {
+      margin-top: 22px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .skip:hover, .skip:focus-visible {
+      outline: none;
+      color: var(--accent-bright);
+      background: var(--accent-soft);
+    }
+
     .splash-flash {
       position: fixed;
       inset: 0;
@@ -883,15 +1093,16 @@
       100% { opacity: 0; }
     }
 
-    /* Splash responsive */
     @media (max-width: 520px) {
       .splash-name { font-size: 20px; }
       .splash-avatar { width: 72px; height: 72px; }
       .splash-avatar svg { width: 72px; height: 72px; }
       .splash-press { font-size: 12px; }
+      .ball-row { gap: 18px; }
+      .ball svg { width: 56px; height: 56px; }
+      .starter-title { font-size: 14px; }
     }
 
-    /* Responsive */
     @media (max-width: 520px) {
       body { padding: 24px 12px 40px; }
       .panel { padding: 30px 16px 20px; }
@@ -905,9 +1116,7 @@
       .stack dd { margin-bottom: 8px; }
       .info-grid { grid-template-columns: 1fr; gap: 2px 0; }
       .info-grid dd { margin-bottom: 8px; }
-      .save-slot {
-        justify-content: center;
-      }
+      .save-slot { justify-content: center; }
       .save-slot > span:first-child { display: none; }
       .save-slot .live { margin-bottom: 10px; }
       .inv-item { grid-template-columns: 52px 1fr auto; gap: 12px; padding: 10px 12px; }
@@ -916,7 +1125,7 @@
     }
   </style>
 </head>
-<body class="splash-active">
+<body class="splash-active theme-purple">
 
   <!-- ── SPLASH / BOOT SCREEN ── -->
   <div id="splash-flash" class="splash-flash"></div>
@@ -943,18 +1152,134 @@
           <rect x="3" y="7" width="1" height="1" fill="#d8688a"/>
           <rect x="10" y="7" width="1" height="1" fill="#d8688a"/>
           <rect x="6" y="8" width="2" height="1" fill="#a83858"/>
-          <rect x="0" y="11" width="1" height="3" fill="#a855f7"/>
-          <rect x="13" y="11" width="1" height="3" fill="#a855f7"/>
+          <rect class="shirt-main" x="0" y="11" width="1" height="3"/>
+          <rect class="shirt-main" x="13" y="11" width="1" height="3"/>
           <rect x="3" y="11" width="8" height="1" fill="#3a2850"/>
-          <rect x="3" y="12" width="8" height="2" fill="#a855f7"/>
-          <rect x="4" y="12" width="6" height="1" fill="#c68cff"/>
+          <rect class="shirt-main" x="3" y="12" width="8" height="2"/>
+          <rect class="shirt-light" x="4" y="12" width="6" height="1"/>
         </svg>
       </div>
       <div class="splash-name" id="splash-name">EDLYN VILLEGAS</div>
-      <div class="splash-role" id="splash-role">▸ Fullstack Developer</div>
+      <div class="splash-role" id="splash-role">Fullstack Developer</div>
       <div class="splash-prompt" id="splash-prompt">
         <div class="splash-press">▶ Press Start</div>
         <div class="splash-hint">click anywhere · press any key</div>
+      </div>
+
+      <!-- ── STARTER SELECT (hidden until Press Start) ── -->
+      <div class="starter" id="starter" aria-hidden="true">
+        <div class="starter-title">CHOOSE YOUR STARTER</div>
+        <p class="starter-dialog" id="starter-dialog"></p>
+
+        <div class="ball-row">
+          <button class="ball ball-water" data-theme="water" aria-label="Pick Water — blue theme">
+            <svg viewBox="0 0 14 14" shape-rendering="crispEdges">
+              <!-- outline -->
+              <rect x="4" y="0" width="6" height="1" fill="#000"/>
+              <rect x="2" y="1" width="2" height="1" fill="#000"/>
+              <rect x="10" y="1" width="2" height="1" fill="#000"/>
+              <rect x="1" y="2" width="1" height="2" fill="#000"/>
+              <rect x="12" y="2" width="1" height="2" fill="#000"/>
+              <rect x="0" y="4" width="1" height="6" fill="#000"/>
+              <rect x="13" y="4" width="1" height="6" fill="#000"/>
+              <rect x="1" y="10" width="1" height="2" fill="#000"/>
+              <rect x="12" y="10" width="1" height="2" fill="#000"/>
+              <rect x="2" y="12" width="2" height="1" fill="#000"/>
+              <rect x="10" y="12" width="2" height="1" fill="#000"/>
+              <rect x="4" y="13" width="6" height="1" fill="#000"/>
+              <!-- top color -->
+              <rect x="4" y="1" width="6" height="1" fill="#3b82f6"/>
+              <rect x="2" y="2" width="10" height="2" fill="#3b82f6"/>
+              <rect x="1" y="4" width="12" height="2" fill="#3b82f6"/>
+              <!-- highlight -->
+              <rect x="3" y="2" width="2" height="1" fill="#7eb6ff"/>
+              <rect x="2" y="3" width="1" height="1" fill="#7eb6ff"/>
+              <!-- band -->
+              <rect x="1" y="6" width="12" height="1" fill="#000"/>
+              <!-- bottom white -->
+              <rect x="1" y="7" width="12" height="3" fill="#f5f5f5"/>
+              <rect x="2" y="10" width="10" height="2" fill="#f5f5f5"/>
+              <rect x="4" y="12" width="6" height="1" fill="#f5f5f5"/>
+              <!-- subtle bottom shading -->
+              <rect x="2" y="11" width="10" height="1" fill="#cfd6e0"/>
+              <rect x="4" y="12" width="6" height="1" fill="#cfd6e0"/>
+              <!-- center button -->
+              <rect x="6" y="5" width="2" height="3" fill="#000"/>
+              <rect x="5" y="6" width="4" height="1" fill="#000"/>
+              <rect x="6" y="6" width="2" height="1" fill="#f5f5f5"/>
+            </svg>
+            <span class="ball-shadow" aria-hidden="true"></span>
+            <span class="ball-label">Water</span>
+          </button>
+
+          <button class="ball ball-fire" data-theme="fire" aria-label="Pick Fire — orange theme">
+            <svg viewBox="0 0 14 14" shape-rendering="crispEdges">
+              <rect x="4" y="0" width="6" height="1" fill="#000"/>
+              <rect x="2" y="1" width="2" height="1" fill="#000"/>
+              <rect x="10" y="1" width="2" height="1" fill="#000"/>
+              <rect x="1" y="2" width="1" height="2" fill="#000"/>
+              <rect x="12" y="2" width="1" height="2" fill="#000"/>
+              <rect x="0" y="4" width="1" height="6" fill="#000"/>
+              <rect x="13" y="4" width="1" height="6" fill="#000"/>
+              <rect x="1" y="10" width="1" height="2" fill="#000"/>
+              <rect x="12" y="10" width="1" height="2" fill="#000"/>
+              <rect x="2" y="12" width="2" height="1" fill="#000"/>
+              <rect x="10" y="12" width="2" height="1" fill="#000"/>
+              <rect x="4" y="13" width="6" height="1" fill="#000"/>
+              <rect x="4" y="1" width="6" height="1" fill="#f97316"/>
+              <rect x="2" y="2" width="10" height="2" fill="#f97316"/>
+              <rect x="1" y="4" width="12" height="2" fill="#f97316"/>
+              <rect x="3" y="2" width="2" height="1" fill="#fdba74"/>
+              <rect x="2" y="3" width="1" height="1" fill="#fdba74"/>
+              <rect x="1" y="6" width="12" height="1" fill="#000"/>
+              <rect x="1" y="7" width="12" height="3" fill="#f5f5f5"/>
+              <rect x="2" y="10" width="10" height="2" fill="#f5f5f5"/>
+              <rect x="4" y="12" width="6" height="1" fill="#f5f5f5"/>
+              <rect x="2" y="11" width="10" height="1" fill="#cfd6e0"/>
+              <rect x="4" y="12" width="6" height="1" fill="#cfd6e0"/>
+              <rect x="6" y="5" width="2" height="3" fill="#000"/>
+              <rect x="5" y="6" width="4" height="1" fill="#000"/>
+              <rect x="6" y="6" width="2" height="1" fill="#f5f5f5"/>
+            </svg>
+            <span class="ball-shadow" aria-hidden="true"></span>
+            <span class="ball-label">Fire</span>
+          </button>
+
+          <button class="ball ball-grass" data-theme="grass" aria-label="Pick Grass — green theme">
+            <svg viewBox="0 0 14 14" shape-rendering="crispEdges">
+              <rect x="4" y="0" width="6" height="1" fill="#000"/>
+              <rect x="2" y="1" width="2" height="1" fill="#000"/>
+              <rect x="10" y="1" width="2" height="1" fill="#000"/>
+              <rect x="1" y="2" width="1" height="2" fill="#000"/>
+              <rect x="12" y="2" width="1" height="2" fill="#000"/>
+              <rect x="0" y="4" width="1" height="6" fill="#000"/>
+              <rect x="13" y="4" width="1" height="6" fill="#000"/>
+              <rect x="1" y="10" width="1" height="2" fill="#000"/>
+              <rect x="12" y="10" width="1" height="2" fill="#000"/>
+              <rect x="2" y="12" width="2" height="1" fill="#000"/>
+              <rect x="10" y="12" width="2" height="1" fill="#000"/>
+              <rect x="4" y="13" width="6" height="1" fill="#000"/>
+              <rect x="4" y="1" width="6" height="1" fill="#22c55e"/>
+              <rect x="2" y="2" width="10" height="2" fill="#22c55e"/>
+              <rect x="1" y="4" width="12" height="2" fill="#22c55e"/>
+              <rect x="3" y="2" width="2" height="1" fill="#86efac"/>
+              <rect x="2" y="3" width="1" height="1" fill="#86efac"/>
+              <rect x="1" y="6" width="12" height="1" fill="#000"/>
+              <rect x="1" y="7" width="12" height="3" fill="#f5f5f5"/>
+              <rect x="2" y="10" width="10" height="2" fill="#f5f5f5"/>
+              <rect x="4" y="12" width="6" height="1" fill="#f5f5f5"/>
+              <rect x="2" y="11" width="10" height="1" fill="#cfd6e0"/>
+              <rect x="4" y="12" width="6" height="1" fill="#cfd6e0"/>
+              <rect x="6" y="5" width="2" height="3" fill="#000"/>
+              <rect x="5" y="6" width="4" height="1" fill="#000"/>
+              <rect x="6" y="6" width="2" height="1" fill="#f5f5f5"/>
+            </svg>
+            <span class="ball-shadow" aria-hidden="true"></span>
+            <span class="ball-label">Grass</span>
+          </button>
+        </div>
+
+        <button class="skip" id="skip" type="button">Skip — just take me in</button>
       </div>
     </div>
   </div>
@@ -962,54 +1287,39 @@
   <div class="console">
 
     <div class="save-slot">
-      <span>Portfolio — ver 2026.04</span>
+      <span>Portfolio — ver 1.0</span>
       <span class="live"><span class="dot"></span>Accepting new quest · hit me up! <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px"><polygon points="23 18 23 20 21 20 21 21 20 21 20 23 18 23 18 21 17 21 17 20 15 20 15 18 17 18 17 17 18 17 18 15 20 15 20 17 21 17 21 18 23 18"/><polygon points="23 4 23 6 21 6 21 7 20 7 20 9 18 9 18 7 17 7 17 6 15 6 15 4 17 4 17 3 18 3 18 1 20 1 20 3 21 3 21 4 23 4"/><polygon points="17 11 17 13 15 13 15 14 13 14 13 15 12 15 12 16 11 16 11 18 10 18 10 20 8 20 8 18 7 18 7 16 6 16 6 15 5 15 5 14 3 14 3 13 1 13 1 11 3 11 3 10 5 10 5 9 6 9 6 8 7 8 7 6 8 6 8 4 10 4 10 6 11 6 11 8 12 8 12 9 13 9 13 10 15 10 15 11 17 11"/></svg></span>
     </div>
 
     <!-- ── TRAINER CARD ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon"><svg id="robot-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="2 10 3 10 3 17 2 17 2 16 1 16 1 11 2 11 2 10"/><path d="m19,7h-1v-1h-5v-3h-2v3h-5v1h-1v1h-1v10h1v1h1v1h12v-1h1v-1h1v-10h-1v-1Zm-2,6h-3v-3h3v3Zm-4,4h-2v-1h2v1Zm-6-1h3v1h-3v-1Zm0-6h3v3h-3v-3Zm7,7v-1h3v1h-3Z"/><polygon points="23 11 23 16 22 16 22 17 21 17 21 10 22 10 22 11 23 11"/></svg></span>Profile</span>
+      <span class="panel-title"><span class="icon"><svg id="robot-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="2 10 3 10 3 17 2 17 2 16 1 16 1 11 2 11 2 10"/><path d="m19,7h-1v-1h-5v-3h-2v3h-5v1h-1v1h-1v10h1v1h1v1h12v-1h1v-1h1v-10h-1v-1Zm-2,6h-3v-3h3v3Zm-4,4h-2v-1h2v1Zm-6-1h3v1h-3v-1Zm0-6h3v3h-3v-3Zm7,7v-1h3v1h-3z"/><polygon points="23 11 23 16 22 16 22 17 21 17 21 10 22 10 22 11 23 11"/></svg></span>Profile</span>
 
       <div class="trainer">
         <div class="avatar" aria-hidden="true">
           <svg viewBox="0 0 14 14" shape-rendering="crispEdges">
-            <!-- ── HAIR (back layer, long, frames face + past shoulders) ── -->
-            <!-- crown -->
             <rect x="3" y="1" width="8" height="1" fill="#2a1e38"/>
             <rect x="2" y="2" width="10" height="3" fill="#2a1e38"/>
-            <!-- long sides (2 cols wide, down past shoulders) -->
             <rect x="1"  y="3"  width="2" height="11" fill="#2a1e38"/>
             <rect x="11" y="3"  width="2" height="11" fill="#2a1e38"/>
-            <!-- straight hair highlight -->
             <rect x="1"  y="4"  width="1" height="5"  fill="#4a3358"/>
             <rect x="12" y="4"  width="1" height="5"  fill="#4a3358"/>
-
-            <!-- ── SKIN (face) ── -->
             <rect x="3" y="4" width="8" height="6" fill="#f0c090"/>
             <rect x="4" y="10" width="6" height="1" fill="#f0c090"/>
-
-            <!-- ── BANGS (front hair on forehead) ── -->
             <rect x="3" y="4" width="3" height="1" fill="#2a1e38"/>
             <rect x="8" y="4" width="3" height="1" fill="#2a1e38"/>
             <rect x="3" y="5" width="1" height="1" fill="#2a1e38"/>
             <rect x="10" y="5" width="1" height="1" fill="#2a1e38"/>
-
-            <!-- ── FACE FEATURES ── -->
-            <!-- eyes -->
             <rect x="4" y="6" width="1" height="2" fill="#2a1e38"/>
             <rect x="9" y="6" width="1" height="2" fill="#2a1e38"/>
-            <!-- cheeks -->
             <rect x="3" y="7" width="1" height="1" fill="#d8688a"/>
             <rect x="10" y="7" width="1" height="1" fill="#d8688a"/>
-            <!-- mouth -->
             <rect x="6" y="8" width="2" height="1" fill="#a83858"/>
-
-            <!-- ── SHIRT + SHOULDERS (visible past straight hair) ── -->
-            <rect x="0" y="11" width="1" height="3" fill="#a855f7"/>
-            <rect x="13" y="11" width="1" height="3" fill="#a855f7"/>
+            <rect class="shirt-main" x="0" y="11" width="1" height="3"/>
+            <rect class="shirt-main" x="13" y="11" width="1" height="3"/>
             <rect x="3" y="11" width="8" height="1" fill="#3a2850"/>
-            <rect x="3" y="12" width="8" height="2" fill="#a855f7"/>
-            <rect x="4" y="12" width="6" height="1" fill="#c68cff"/>
+            <rect class="shirt-main" x="3" y="12" width="8" height="2"/>
+            <rect class="shirt-light" x="4" y="12" width="6" height="1"/>
           </svg>
         </div>
 
@@ -1027,13 +1337,13 @@
         <dt>Based</dt>     <dd>Manila, Philippines 🇵🇭</dd>
         <dt>Shipping</dt>  <dd>Since 2019</dd>
         <dt>Focus</dt>     <dd>SaaS platforms · Cloud infra · AI integrations</dd>
-        <dt>Email</dt>     <dd><a href="mailto:edlynsavillegas@gmail.com" style="color:var(--accent-bright);text-decoration:none;">edlynsavillegas@gmail.com</a></dd>
+        <dt>Email</dt>     <dd><a href="mailto:hello@edlynvillegas.com" style="color:var(--accent-bright);text-decoration:none;">hello@edlynvillegas.com</a></dd>
       </dl>
     </section>
 
     <!-- ── STACK ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 4 16 4 16 6 15 6 15 9 14 9 14 12 13 12 13 14 12 14 12 17 11 17 11 20 10 20 10 21 9 21 9 20 8 20 8 18 9 18 9 15 10 15 10 12 11 12 11 10 12 10 12 7 13 7 13 4 14 4 14 3 15 3 15 4"/><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 17 17 17 15 18 15 18 14 19 14 19 13 20 13 20 11 19 11 19 10 18 10 18 9 17 9 17 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/><polygon points="7 7 7 9 6 9 6 10 5 10 5 11 4 11 4 13 5 13 5 14 6 14 6 15 7 15 7 17 5 17 5 16 4 16 4 15 3 15 3 14 2 14 2 13 1 13 1 11 2 11 2 10 3 10 3 9 4 9 4 8 5 8 5 7 7 7"/></svg></span>Stack</span>
+      <span class="panel-title"><span class="icon"><?xml version="1.0" encoding="UTF-8"?><svg id="code-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 4 16 4 16 6 15 6 15 9 14 9 14 12 13 12 13 14 12 14 12 17 11 17 11 20 10 20 10 21 9 21 9 20 8 20 8 18 9 18 9 15 10 15 10 12 11 12 11 10 12 10 12 7 13 7 13 4 14 4 14 3 15 3 15 4"/><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 17 17 17 15 18 15 18 14 19 14 19 13 20 13 20 11 19 11 19 10 18 10 18 9 17 9 17 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/><polygon points="7 7 7 9 6 9 6 10 5 10 5 11 4 11 4 13 5 13 5 14 6 14 6 15 7 15 7 17 5 17 5 16 4 16 4 15 3 15 3 14 2 14 2 13 1 13 1 11 2 11 2 10 3 10 3 9 4 9 4 8 5 8 5 7 7 7"/></svg></span>Stack</span>
 
       <dl class="stack">
         <dt>Frontend</dt>
@@ -1121,18 +1431,19 @@
         <li><a href="https://github.com/edlynvillegas" target="_blank" rel="noopener"><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="23 9 23 15 22 15 22 17 21 17 21 19 20 19 20 20 19 20 19 21 18 21 18 22 16 22 16 23 15 23 15 18 14 18 14 17 15 17 15 16 17 16 17 15 18 15 18 14 19 14 19 9 18 9 18 6 16 6 16 7 15 7 15 8 14 8 14 7 10 7 10 8 9 8 9 7 8 7 8 6 6 6 6 9 5 9 5 14 6 14 6 15 7 15 7 16 9 16 9 18 7 18 7 17 6 17 6 16 4 16 4 17 5 17 5 19 6 19 6 20 9 20 9 23 8 23 8 22 6 22 6 21 5 21 5 20 4 20 4 19 3 19 3 17 2 17 2 15 1 15 1 9 2 9 2 7 3 7 3 5 4 5 4 4 5 4 5 3 7 3 7 2 9 2 9 1 15 1 15 2 17 2 17 3 19 3 19 4 20 4 20 5 21 5 21 7 22 7 22 9 23 9"/></svg>GitHub</a></li>
         <li><a href="https://linkedin.com/in/edlynvillegas" target="_blank" rel="noopener"><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m22,2v-1H2v1h-1v20h1v1h20v-1h1V2h-1Zm-9,10v8h-3v-11h3v1h1v-1h4v1h1v10h-3v-8h-3Zm-9-4v-3h3v3h-3Zm3,1v11h-3v-11h3Z"/></svg>LinkedIn</a></li>
         <li><a href="https://instagram.com/edlynsavillegas_" target="_blank" rel="noopener"><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17,9v-1h-1v-1h-1v-1h-6v1h-1v1h-1v1h-1v6h1v1h1v1h1v1h6v-1h1v-1h1v-1h1v-6h-1Zm-1,5h-1v1h-1v1h-4v-1h-1v-1h-1v-4h1v-1h1v-1h4v1h1v1h1v4Z"/><path d="m22,5v-2h-1v-1h-2v-1H5v1h-2v1h-1v2h-1v14h1v2h1v1h2v1h14v-1h2v-1h1v-2h1V5h-1Zm-1,14h-1v1h-1v1H5v-1h-1v-1h-1V5h1v-1h1v-1h14v1h1v1h1v14Z"/><rect x="17" y="5" width="2" height="2"/></svg>Instagram</a></li>
-        <li><a href="mailto:edlynsavillegas@gmail.com"><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21,5v-1H3v1H1v14h1v1h20v-1h1V5h-2Zm-11,7v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h14v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v-1h-1Zm-6-5v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v11H3V7h1Z"/></svg>Email</a></li>
+        <li><a href="mailto:hello@edlynvillegas.com"><svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21,5v-1H3v1H1v14h1v1h20v-1h1V5h-2Zm-11,7v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h14v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v-1h-1Zm-6-5v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h2v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v-1h1v11H3V7h1Z"/></svg>Email</a></li>
       </ul>
     </section>
 
     <div class="footer">
-      <div class="press-start">▶ Press Start</div>
+      <button type="button" class="restart-link" id="restart">Choose different starter</button>
       <div style="margin-top:8px;">© 2026 Edlyn Villegas · Saved in Manila</div>
       <div class="font-credit">
         Font: <a href="https://fontstruct.com/fontstructions/show/1975556" target="_blank" rel="noopener">&ldquo;Pokemon Emerald&rdquo; by aztecwarrior28</a>
         · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>
         <br>Icons: <a href="https://pixeliconlibrary.com/" target="_blank" rel="noopener">Pixel Icon Library</a>
         · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>
+        <br>Sounds: <a href="https://sounds.spriters-resource.com/game_boy_advance/pokemonemerald/" target="_blank" rel="noopener">Pokémon Emerald — Spriters Resource</a>
       </div>
     </div>
 
@@ -1144,26 +1455,55 @@
     hoverSound.volume = 1.0;
     var clickSound = new Audio('sounds/emerald_00D1.wav');
     clickSound.volume = 1.0;
+    var liftSound = new Audio('sounds/emerald_00D4__lift.wav');
+    liftSound.volume = 1.0;
+    var nonInteractiveSound = new Audio('sounds/emerald_001F__non-interactive.wav');
+    nonInteractiveSound.volume = 0.5;
 
     function playHover() {
       hoverSound.currentTime = 0;
       hoverSound.play().catch(function() {});
     }
-
     function playClick() {
       clickSound.currentTime = 0;
       clickSound.play().catch(function() {});
     }
+    function playLift() {
+      liftSound.currentTime = 0;
+      liftSound.play().catch(function() {});
+    }
+    function playNonInteractive() {
+      nonInteractiveSound.currentTime = 0;
+      nonInteractiveSound.play().catch(function() {});
+    }
+
+    // ── Theme switcher ──
+    var THEMES = ['purple', 'water', 'fire', 'grass'];
+    function applyTheme(name) {
+      if (THEMES.indexOf(name) === -1) name = 'purple';
+      THEMES.forEach(function(t) { document.body.classList.remove('theme-' + t); });
+      document.body.classList.add('theme-' + name);
+      try { localStorage.setItem('portfolio_theme', name); } catch (e) {}
+    }
+
+    // Apply previously saved theme on load (so returning visitors keep their vibe)
+    var savedTheme = null;
+    try { savedTheme = localStorage.getItem('portfolio_theme'); } catch (e) {}
+    if (savedTheme) applyTheme(savedTheme);
 
     // ── Hover sounds ──
-    document.querySelectorAll('.tag, .menu a, .inv-item, .verify-btn').forEach(function(el) {
+    document.querySelectorAll('.menu a, .inv-item, .verify-btn').forEach(function(el) {
       el.addEventListener('mouseenter', playHover);
     });
+    document.querySelectorAll('.tag').forEach(function(el) {
+      el.addEventListener('mouseenter', playNonInteractive);
+    });
 
-    // ── Verify click: sound + button fill transition ──
+    // ── Verify click ──
     document.querySelectorAll('.verify-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
+        if (this.classList.contains('filling')) return;
         var href = this.href;
         playClick();
         this.classList.add('filling');
@@ -1174,10 +1514,11 @@
       });
     });
 
-    // ── Action menu click: sound + fill transition + email copy ──
+    // ── Action menu click ──
     document.querySelectorAll('.menu a').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
+        if (this.classList.contains('filling')) return;
         var href = this.href;
         var isEmail = href.indexOf('mailto:') === 0;
         var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -1221,7 +1562,19 @@
       });
     }
 
-    // ── Typewriter with rotating dialogs ──
+    // ── Footer "Choose different starter" → jump straight to starter picker ──
+    var restartBtn = document.getElementById('restart');
+    if (restartBtn) {
+      restartBtn.addEventListener('mouseenter', playHover);
+      restartBtn.addEventListener('click', function() {
+        playClick();
+        if (typeof window.__restartToStarter === 'function') {
+          window.__restartToStarter();
+        }
+      });
+    }
+
+    // ── Typewriter (main dialog) ──
     var dialogs = [
       "Hi! I'm Edlyn. I build and ship SaaS platforms on the cloud. I pair with AI to move even faster. Let's build! :D",
       "Currently pursuing cloud certifications and exploring AI integrations. Always shipping, always learning!",
@@ -1232,24 +1585,40 @@
     var dialogEl = document.getElementById('dialog');
     var dialogNext = document.querySelector('.dialog-next');
 
-    function typeDialog(text, onDone) {
+    // Session token: bumping it cancels every in-flight typewriter tick and
+    // pending scheduleNext timer, so only one dialog chain is ever alive at once.
+    var twSession = 0;
+    var twTimers = [];
+    function twTrack(id) { twTimers.push(id); return id; }
+    function twReset() {
+      twSession++;
+      for (var i = 0; i < twTimers.length; i++) clearTimeout(twTimers[i]);
+      twTimers = [];
+    }
+
+    function typeInto(el, text, speed, onDone) {
+      var mySession = twSession;
       var i = 0;
       function tick() {
+        if (mySession !== twSession) return;
         if (i <= text.length) {
-          dialogEl.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
+          el.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
           i++;
-          setTimeout(tick, 26);
+          twTrack(setTimeout(tick, speed));
         } else {
-          dialogEl.innerHTML = text + '<span class="cursor"></span>';
+          el.innerHTML = text + '<span class="cursor"></span>';
           if (onDone) onDone();
         }
       }
       tick();
     }
 
+    function typeDialog(text, onDone) { typeInto(dialogEl, text, 26, onDone); }
+
     var dialogDelays = [10000, 6000, 6000, 6000];
 
     function startTypewriter() {
+      twReset();
       dialogIdx = 0;
       typeDialog(dialogs[0], function() {
         if (dialogNext) dialogNext.style.opacity = '1';
@@ -1259,7 +1628,9 @@
 
     function scheduleNext() {
       var delay = dialogDelays[dialogIdx] || 6000;
-      setTimeout(function() {
+      var mySession = twSession;
+      twTrack(setTimeout(function() {
+        if (mySession !== twSession) return;
         dialogIdx = (dialogIdx + 1) % dialogs.length;
         if (dialogNext) { dialogNext.style.transition = 'none'; dialogNext.style.opacity = '0'; }
         typeDialog(dialogs[dialogIdx], function() {
@@ -1267,10 +1638,10 @@
           if (dialogNext) dialogNext.style.opacity = '1';
           scheduleNext();
         });
-      }, delay);
+      }, delay));
     }
 
-    // ── Splash / Boot screen ──
+    // ── Splash / Boot screen + Starter select ──
     (function() {
       var splash = document.getElementById('splash');
       var flash = document.getElementById('splash-flash');
@@ -1281,10 +1652,14 @@
         avatar: document.getElementById('splash-avatar'),
         name: document.getElementById('splash-name'),
         role: document.getElementById('splash-role'),
-        prompt: document.getElementById('splash-prompt')
+        prompt: document.getElementById('splash-prompt'),
+        starter: document.getElementById('starter'),
+        starterDialog: document.getElementById('starter-dialog'),
+        skip: document.getElementById('skip'),
+        balls: document.querySelectorAll('.ball')
       };
 
-      // ── Stardew-style firefly particles ──
+      // ── Firefly particles ──
       var particlesContainer = document.getElementById('splash-particles');
       var colors = ['#f0c048', '#c68cff', '#e8e0f0', '#a855f7', '#7ad870'];
       for (var p = 0; p < 18; p++) {
@@ -1303,8 +1678,18 @@
         particlesContainer.appendChild(dot);
       }
 
-      var ready = false;
+      var ready = false;        // boot animation finished, Press Start armed
+      var inStarter = false;    // starter select shown
       var dismissed = false;
+
+      // If the user clicked "Choose different starter", skip boot and jump to picker
+      var jumpToStarter = false;
+      try {
+        if (sessionStorage.getItem('jump_to_starter') === '1') {
+          jumpToStarter = true;
+          sessionStorage.removeItem('jump_to_starter');
+        }
+      } catch (e) {}
 
       // ── Boot sequence ──
       var steps = [
@@ -1331,35 +1716,244 @@
         ready = true;
       }
 
+      // If jump-to-starter flag set, skip boot AND skip the fade-out dance —
+      // hide name/role/prompt synchronously so they never become visible.
+      if (jumpToStarter) {
+        for (var t = 0; t < timers.length; t++) clearTimeout(timers[t]);
+        els.star.classList.add('show');
+        els.avatar.classList.add('float');
+        els.name.style.display = 'none';
+        els.role.style.display = 'none';
+        els.prompt.style.display = 'none';
+        ready = true;
+        inStarter = true;
+        els.starter.classList.add('show');
+        els.starter.setAttribute('aria-hidden', 'false');
+        splash.style.cursor = 'default';
+        requestAnimationFrame(function() {
+          typeInto(
+            els.starterDialog,
+            "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
+            22
+          );
+          var firstBall = els.balls[0];
+          if (firstBall) firstBall.focus();
+        });
+      }
+
+      // ── Show starter select after Press Start ──
+      function openStarter() {
+        if (inStarter) return;
+        inStarter = true;
+        playClick();
+        // Hide name/role/prompt, slide starter UI in
+        els.name.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        els.role.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        els.name.style.opacity = '0';
+        els.name.style.transform = 'translateY(-6px)';
+        els.role.style.opacity = '0';
+        els.role.style.transform = 'translateY(-6px)';
+        els.prompt.classList.add('hide');
+
+        setTimeout(function() {
+          els.name.style.display = 'none';
+          els.role.style.display = 'none';
+          els.prompt.style.display = 'none';
+          els.starter.classList.add('show');
+          els.starter.setAttribute('aria-hidden', 'false');
+          // Type the prompt
+          typeInto(
+            els.starterDialog,
+            "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
+            22
+          );
+          // Make splash no longer click-to-dismiss
+          splash.style.cursor = 'default';
+          // Focus first ball for keyboard users
+          var firstBall = els.balls[0];
+          if (firstBall) firstBall.focus();
+        }, 360);
+      }
+
+      // ── Choose a starter ──
+      function chooseStarter(themeName) {
+        if (dismissed) return;
+        applyTheme(themeName);
+        playClick();
+        dismiss();
+      }
+
+      // ── Dismiss splash → portfolio ──
       function dismiss() {
         if (dismissed) return;
         dismissed = true;
-        playClick();
         flash.classList.add('active');
         splash.classList.add('dismissed');
-        setTimeout(function() {
+        // Reset scroll so the portfolio always opens at the top
+        window.scrollTo(0, 0);
+        // Track both timers so __restartToStarter can cancel them — otherwise
+        // a pending 1.2s hide fires after restart and re-hides the revived splash.
+        timers.push(setTimeout(function() {
           document.body.classList.remove('splash-active');
+          window.scrollTo(0, 0);
           startTypewriter();
-        }, 500);
-        setTimeout(function() {
-          splash.remove();
-          flash.remove();
-        }, 1200);
+        }, 500));
+        timers.push(setTimeout(function() {
+          // Hide instead of remove so restart can revive the splash in-place
+          // without a full page reload (keeps click sound playing smoothly).
+          splash.style.display = 'none';
+          flash.style.display = 'none';
+          flash.classList.remove('active');
+        }, 1200));
       }
 
-      function handleInteraction() {
+      // Exposed so the footer "Choose different starter" button can restart
+      // the splash + starter picker in-page (no reload, so the click sound
+      // plays through smoothly).
+      window.__restartToStarter = function() {
+        // Cancel any in-flight typewriter chain AND the pending dismiss timers
+        // so no stale callback mutates DOM after the splash is revived.
+        twReset();
+        for (var ti = 0; ti < timers.length; ti++) clearTimeout(timers[ti]);
+        timers = [];
+
+        applyTheme('purple');
+        try { localStorage.removeItem('portfolio_theme'); } catch (e) {}
+
+        // Reset internal state
+        dismissed = false;
+        inStarter = false;
+        ready = true;
+
+        // Reset DOM: bring splash back in its dismissed (invisible) state so
+        // the opacity transition can fade it in — mirroring dismiss().
+        splash.style.display = '';
+        splash.classList.add('dismissed');
+        splash.style.cursor = 'default';
+
+        // Re-trigger the white flash: remove .active, force reflow, re-add.
+        flash.style.display = '';
+        flash.classList.remove('active');
+        void flash.offsetWidth;
+        flash.classList.add('active');
+
+        document.body.classList.add('splash-active');
+        window.scrollTo(0, 0);
+
+        els.star.classList.add('show');
+        els.avatar.classList.remove('show');
+        els.avatar.classList.add('float');
+
+        els.name.style.transition = '';
+        els.name.style.opacity = '';
+        els.name.style.transform = '';
+        els.name.classList.remove('show');
+        els.name.style.display = 'none';
+
+        els.role.style.transition = '';
+        els.role.style.opacity = '';
+        els.role.style.transform = '';
+        els.role.classList.remove('show');
+        els.role.style.display = 'none';
+
+        els.prompt.classList.remove('show', 'hide');
+        els.prompt.style.display = 'none';
+
+        if (els.starterDialog) els.starterDialog.textContent = '';
+        els.starter.classList.add('show');
+        els.starter.setAttribute('aria-hidden', 'false');
+        inStarter = true;
+
+        // Next frame: lift .dismissed so the splash fades in under the flash.
+        requestAnimationFrame(function() {
+          splash.classList.remove('dismissed');
+          requestAnimationFrame(function() {
+            typeInto(
+              els.starterDialog,
+              "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
+              22
+            );
+            var firstBall = els.balls[0];
+            if (firstBall) firstBall.focus();
+          });
+        });
+
+        // Clean the flash class once its anim finishes so the next trigger works.
+        timers.push(setTimeout(function() {
+          flash.classList.remove('active');
+        }, 500));
+      };
+
+      // ── Wire up ball + skip ──
+      els.balls.forEach(function(b) {
+        b.addEventListener('click', function() {
+          chooseStarter(b.getAttribute('data-theme'));
+        });
+      });
+      // Bounce hover (Motion library) is wired up below in a module script,
+      // which also plays the lift sound on mouseenter.
+      els.skip.addEventListener('mouseenter', playHover);
+      els.skip.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chooseStarter('purple');
+      });
+
+      // ── Splash interactions ──
+      function handleInteraction(e) {
         if (dismissed) return;
+        if (inStarter) {
+          // Background click in starter mode = skip (default theme)
+          chooseStarter('purple');
+          return;
+        }
         if (!ready) skipToReady();
-        else dismiss();
+        else openStarter();
       }
 
-      splash.addEventListener('click', handleInteraction);
+      splash.addEventListener('click', function(e) {
+        // Don't treat clicks on balls or the skip button as background clicks
+        if (e.target.closest('.ball') || e.target.closest('#skip')) return;
+        handleInteraction(e);
+      });
+
       document.addEventListener('keydown', function onKey(e) {
-        if (dismissed) { document.removeEventListener('keydown', onKey); return; }
+        // Don't detach on dismiss — restart flips dismissed back to false and
+        // we need this handler alive so quick-pick keys work on the second run.
+        if (dismissed) return;
         if (['Shift', 'Control', 'Alt', 'Meta', 'Tab'].includes(e.key)) return;
-        handleInteraction();
+        if (inStarter) {
+          // Number keys 1/2/3 quick-pick, Esc/S = skip
+          if (e.key === '1') chooseStarter('water');
+          else if (e.key === '2') chooseStarter('fire');
+          else if (e.key === '3') chooseStarter('grass');
+          else if (e.key === 'Escape' || e.key.toLowerCase() === 's') chooseStarter('purple');
+          return;
+        }
+        handleInteraction(e);
       });
     })();
+  </script>
+
+  <!-- Pokeball bounce (Motion) — https://motion.dev/examples/js-bounce-easing -->
+  <script type="module">
+    import { animate } from "https://cdn.jsdelivr.net/npm/motion@11.18.0/+esm";
+
+    var balls = document.querySelectorAll('.ball');
+    balls.forEach(function (ball) {
+      var svg = ball.querySelector('svg');
+      var shadow = ball.querySelector('.ball-shadow');
+
+      ball.addEventListener('mouseenter', function () {
+        if (typeof window.playLift === 'function') window.playLift();
+        animate(svg, { y: -22 }, { type: 'spring', bounce: 0.7, duration: 1.0 });
+        animate(shadow, { opacity: 1, scaleX: 0.6 }, { duration: 0.25 });
+      });
+
+      ball.addEventListener('mouseleave', function () {
+        animate(svg, { y: 0 }, { type: 'spring', bounce: 0.45, duration: 0.6 });
+        animate(shadow, { opacity: 0, scaleX: 1 }, { duration: 0.2 });
+      });
+    });
   </script>
 </body>
 </html>
