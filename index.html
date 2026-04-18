@@ -150,7 +150,7 @@
 
     .panel-title {
       font-family: var(--font-title);
-      font-weight: 400;
+      font-weight: bold;
       font-size: 18px;
       letter-spacing: 0.02em;
       text-transform: uppercase;
@@ -648,38 +648,40 @@
       font-smooth: never;
     }
 
-    .restart-link {
-      display: inline-block;
-      margin-top: 5px;
-      margin-bottom: 5px;
+    .link-btn {
       background: none;
       border: none;
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--ink-dim);
-      letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
-      padding: 4px 10px;
       border-radius: 4px;
       transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .restart-link::before {
+    .link-btn::before {
       content: '▸';
       display: inline-block;
       margin-right: 4px;
     }
 
-    .restart-link:hover, .restart-link:focus-visible {
+    .link-btn:hover, .link-btn:focus-visible {
       outline: none;
       color: var(--accent-bright);
       background: var(--accent-soft);
     }
 
-    .restart-link:hover::before,
-    .restart-link:focus-visible::before {
+    .link-btn:hover::before,
+    .link-btn:focus-visible::before {
       animation: arrow-pulse 0.8s steps(2) infinite;
+    }
+
+    .restart-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--ink-dim);
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
     }
 
     .font-credit {
@@ -1039,7 +1041,7 @@
 
     .ball-label {
       font-family: var(--font-title);
-      font-size: 11px;
+      font-size: 14px;
       color: var(--ink);
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -1057,23 +1059,9 @@
 
     .skip {
       margin-top: 22px;
-      font-family: var(--font-mono);
-      font-size: 11px;
       color: var(--ink-faint);
       letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: none;
-      border: none;
-      cursor: pointer;
       padding: 6px 10px;
-      border-radius: 4px;
-      transition: color 0.15s ease, background 0.15s ease;
-    }
-
-    .skip:hover, .skip:focus-visible {
-      outline: none;
-      color: var(--accent-bright);
-      background: var(--accent-soft);
     }
 
     .splash-flash {
@@ -1280,7 +1268,7 @@
           </button>
         </div>
 
-        <button class="skip" id="skip" type="button">Skip — just take me in</button>
+        <button class="link-btn skip" id="skip" type="button">Skip — just take me in <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor;vertical-align:-2px;"><polygon points="23 5 23 6 21 6 21 7 20 7 20 9 19 9 19 7 18 7 18 6 16 6 16 5 18 5 18 4 19 4 19 2 20 2 20 4 21 4 21 5 23 5"/><polygon points="23 18 23 19 21 19 21 20 20 20 20 22 19 22 19 20 18 20 18 19 16 19 16 18 18 18 18 17 19 17 19 15 20 15 20 17 21 17 21 18 23 18"/><path d="M15,11V10H13V9H12V8H11V6H10V4H8V6H7V8H6V9H5v1H3v1H1v2H3v1H5v1H6v1H7v2H8v2h2V18h1V16h1V15h1V14h2V13h2V11Zm-3,2v1H11v1H10v2H8V15H7V14H6V13H4V11H6V10H7V9H8V7h2V9h1v1h1v1h2v2Z"/></svg></button>
       </div>
     </div>
   </div>
@@ -1344,7 +1332,7 @@
 
     <!-- ── STACK ── -->
     <section class="panel">
-      <span class="panel-title"><span class="icon"><?xml version="1.0" encoding="UTF-8"?><svg id="code-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 4 16 4 16 6 15 6 15 9 14 9 14 12 13 12 13 14 12 14 12 17 11 17 11 20 10 20 10 21 9 21 9 20 8 20 8 18 9 18 9 15 10 15 10 12 11 12 11 10 12 10 12 7 13 7 13 4 14 4 14 3 15 3 15 4"/><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 17 17 17 15 18 15 18 14 19 14 19 13 20 13 20 11 19 11 19 10 18 10 18 9 17 9 17 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/><polygon points="7 7 7 9 6 9 6 10 5 10 5 11 4 11 4 13 5 13 5 14 6 14 6 15 7 15 7 17 5 17 5 16 4 16 4 15 3 15 3 14 2 14 2 13 1 13 1 11 2 11 2 10 3 10 3 9 4 9 4 8 5 8 5 7 7 7"/></svg></span>Stack</span>
+      <span class="panel-title"><span class="icon"><svg id="code-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="15 4 16 4 16 6 15 6 15 9 14 9 14 12 13 12 13 14 12 14 12 17 11 17 11 20 10 20 10 21 9 21 9 20 8 20 8 18 9 18 9 15 10 15 10 12 11 12 11 10 12 10 12 7 13 7 13 4 14 4 14 3 15 3 15 4"/><polygon points="23 11 23 13 22 13 22 14 21 14 21 15 20 15 20 16 19 16 19 17 17 17 17 15 18 15 18 14 19 14 19 13 20 13 20 11 19 11 19 10 18 10 18 9 17 9 17 7 19 7 19 8 20 8 20 9 21 9 21 10 22 10 22 11 23 11"/><polygon points="7 7 7 9 6 9 6 10 5 10 5 11 4 11 4 13 5 13 5 14 6 14 6 15 7 15 7 17 5 17 5 16 4 16 4 15 3 15 3 14 2 14 2 13 1 13 1 11 2 11 2 10 3 10 3 9 4 9 4 8 5 8 5 7 7 7"/></svg></span>Stack</span>
 
       <dl class="stack">
         <dt>Frontend</dt>
@@ -1437,8 +1425,8 @@
     </section>
 
     <div class="footer">
-      <button type="button" class="restart-link" id="restart">Choose different starter</button>
-      <div style="margin-top:8px;">© 2026 Edlyn Villegas · Saved in Manila</div>
+      <button type="button" class="link-btn restart-link" id="restart">Choose different starter</button>
+      <div style="margin-top:8px;">© 2026 Edlyn Villegas · <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;vertical-align:-1px;"><polygon points="15 14 15 18 14 18 14 19 10 19 10 18 9 18 9 14 10 14 10 13 14 13 14 14 15 14"/><path d="m22,7v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1H2v1h-1v20h1v1h20v-1h1V7h-1Zm-7,3V3h1v1h1v1h1v1h1v1h1v1h1v1h1v13H3V3h1v7h11ZM6,3h7v5h-7V3Z"/></svg> Saved in Manila</div>
       <div class="font-credit">
         Font: <a href="https://fontstruct.com/fontstructions/show/1975556" target="_blank" rel="noopener">&ldquo;Pokemon Emerald&rdquo; by aztecwarrior28</a>
         · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>
@@ -1500,18 +1488,30 @@
       el.addEventListener('mouseenter', playNonInteractive);
     });
 
+    // Duration of the "fill" button animation before the action fires.
+    var BUTTON_FILL_MS = 550;
+
+    // Runs `action` after the fill animation completes, then clears the filling
+    // class. Guards against re-entry while a fill is already in progress.
+    function runFilling(btn, action, delay) {
+      if (btn.classList.contains('filling')) return false;
+      playClick();
+      btn.classList.add('filling');
+      setTimeout(function() {
+        action();
+        btn.classList.remove('filling');
+      }, delay == null ? BUTTON_FILL_MS : delay);
+      return true;
+    }
+
     // ── Verify click ──
     document.querySelectorAll('.verify-btn').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        if (this.classList.contains('filling')) return;
-        var href = this.href;
-        playClick();
-        this.classList.add('filling');
-        setTimeout(function() {
+        var href = btn.href;
+        runFilling(btn, function() {
           window.open(href, '_blank', 'noopener');
-          btn.classList.remove('filling');
-        }, 550);
+        });
       });
     });
 
@@ -1519,35 +1519,20 @@
     document.querySelectorAll('.menu a').forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        if (this.classList.contains('filling')) return;
-        var href = this.href;
+        var href = btn.href;
         var isEmail = href.indexOf('mailto:') === 0;
         var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        playClick();
-        this.classList.add('filling');
 
         if (isEmail && isMobile) {
-          var self = this;
-          setTimeout(function() {
-            window.location.href = href;
-            self.classList.remove('filling');
-          }, 550);
+          runFilling(btn, function() { window.location.href = href; });
         } else if (isEmail) {
           var email = href.replace('mailto:', '');
           navigator.clipboard.writeText(email);
-          var original = this.textContent;
-          this.lastChild.textContent = 'Copied!';
-          var self = this;
-          setTimeout(function() {
-            self.lastChild.textContent = original;
-            self.classList.remove('filling');
-          }, 1200);
+          var original = btn.lastChild.textContent;
+          btn.lastChild.textContent = 'Copied!';
+          runFilling(btn, function() { btn.lastChild.textContent = original; }, 1200);
         } else {
-          var self = this;
-          setTimeout(function() {
-            window.open(href, '_blank', 'noopener');
-            self.classList.remove('filling');
-          }, 550);
+          runFilling(btn, function() { window.open(href, '_blank', 'noopener'); });
         }
       });
     });
@@ -1683,6 +1668,24 @@
       var inStarter = false;    // starter select shown
       var dismissed = false;
 
+      var STARTER_PROMPT = "Pick a starter to set the vibe~ Promise I won't judge what you pick. (much) hehe";
+      var STARTER_TYPE_SPEED = 22;
+
+      function clearAllTimers() {
+        for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]);
+      }
+
+      function showStarterPanel() {
+        els.starter.classList.add('show');
+        els.starter.setAttribute('aria-hidden', 'false');
+      }
+
+      function typeStarterPromptAndFocus() {
+        typeInto(els.starterDialog, STARTER_PROMPT, STARTER_TYPE_SPEED);
+        var firstBall = els.balls[0];
+        if (firstBall) firstBall.focus();
+      }
+
       // If the user clicked "Choose different starter", skip boot and jump to picker
       var jumpToStarter = false;
       try {
@@ -1708,7 +1711,7 @@
       }
 
       function skipToReady() {
-        for (var t = 0; t < timers.length; t++) clearTimeout(timers[t]);
+        clearAllTimers();
         els.star.classList.add('show');
         els.avatar.classList.add('float');
         els.name.classList.add('show');
@@ -1720,7 +1723,7 @@
       // If jump-to-starter flag set, skip boot AND skip the fade-out dance —
       // hide name/role/prompt synchronously so they never become visible.
       if (jumpToStarter) {
-        for (var t = 0; t < timers.length; t++) clearTimeout(timers[t]);
+        clearAllTimers();
         els.star.classList.add('show');
         els.avatar.classList.add('float');
         els.name.style.display = 'none';
@@ -1728,18 +1731,9 @@
         els.prompt.style.display = 'none';
         ready = true;
         inStarter = true;
-        els.starter.classList.add('show');
-        els.starter.setAttribute('aria-hidden', 'false');
+        showStarterPanel();
         splash.style.cursor = 'default';
-        requestAnimationFrame(function() {
-          typeInto(
-            els.starterDialog,
-            "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
-            22
-          );
-          var firstBall = els.balls[0];
-          if (firstBall) firstBall.focus();
-        });
+        requestAnimationFrame(typeStarterPromptAndFocus);
       }
 
       // ── Show starter select after Press Start ──
@@ -1760,19 +1754,10 @@
           els.name.style.display = 'none';
           els.role.style.display = 'none';
           els.prompt.style.display = 'none';
-          els.starter.classList.add('show');
-          els.starter.setAttribute('aria-hidden', 'false');
-          // Type the prompt
-          typeInto(
-            els.starterDialog,
-            "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
-            22
-          );
+          showStarterPanel();
           // Make splash no longer click-to-dismiss
           splash.style.cursor = 'default';
-          // Focus first ball for keyboard users
-          var firstBall = els.balls[0];
-          if (firstBall) firstBall.focus();
+          typeStarterPromptAndFocus();
         }, 360);
       }
 
@@ -1815,7 +1800,7 @@
         // Cancel any in-flight typewriter chain AND the pending dismiss timers
         // so no stale callback mutates DOM after the splash is revived.
         twReset();
-        for (var ti = 0; ti < timers.length; ti++) clearTimeout(timers[ti]);
+        clearAllTimers();
         timers = [];
 
         applyTheme('purple');
@@ -1861,22 +1846,13 @@
         els.prompt.style.display = 'none';
 
         if (els.starterDialog) els.starterDialog.textContent = '';
-        els.starter.classList.add('show');
-        els.starter.setAttribute('aria-hidden', 'false');
+        showStarterPanel();
         inStarter = true;
 
         // Next frame: lift .dismissed so the splash fades in under the flash.
         requestAnimationFrame(function() {
           splash.classList.remove('dismissed');
-          requestAnimationFrame(function() {
-            typeInto(
-              els.starterDialog,
-              "Pick a starter to set the vibe of my site~ Promise I won't judge what you pick. (much) hehe",
-              22
-            );
-            var firstBall = els.balls[0];
-            if (firstBall) firstBall.focus();
-          });
+          requestAnimationFrame(typeStarterPromptAndFocus);
         });
 
         // Clean the flash class once its anim finishes so the next trigger works.
